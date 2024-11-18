@@ -1,0 +1,10 @@
+<resources>
+    <array name="country_codes">
+        <item>+1</item>  <!-- USA -->
+        <item>+44</item> <!-- UK -->
+        <item>+91</item> <!-- India -->
+        <item>+61</item> <!-- Australia -->
+        <item>+81</item> <!-- Japan -->
+        <!-- Add more country codes as needed -->
+    </array>
+</resources>

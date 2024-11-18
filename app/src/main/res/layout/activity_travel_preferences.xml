@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Travel Preferences"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="20dp" />
+
+    <!-- Preference Options -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preferred mode of transport"
+        android:paddingTop="10dp" />
+
+    <Spinner
+        android:id="@+id/transportModeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preferred travel time"
+        android:paddingTop="10dp" />
+
+    <Spinner
+        android:id="@+id/travelTimeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Save Preferences Button -->
+    <Button
+        android:id="@+id/savePreferencesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Preferences"
+        android:layout_marginTop="20dp" />
+
+</LinearLayout>

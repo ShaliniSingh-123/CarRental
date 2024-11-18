@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/carbkg">
+
+    <!-- Centered Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <!-- Quote TextView -->
+        <TextView
+            android:id="@+id/quoteText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quote your pickup or ride at \n a low price"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:layout_marginTop="200dp"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <!-- Signup Button -->
+        <Button
+            android:id="@+id/registerRedirectText"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text="Sign Up"
+            android:textSize="18sp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/red" />
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/loginRedirectText"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text="Login"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:background="@null" />
+
+    </LinearLayout>
+
+</RelativeLayout>

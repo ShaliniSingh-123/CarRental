@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <!-- Parent Theme for the Activity -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/background_color</item>
+    </style>
+
+    <!-- Style for the labels (TextView) -->
+    <style name="LabelTextStyle">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <!-- Style for the input fields (EditText) -->
+    <style name="InputFieldStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/input_border</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColorHint">@color/input_border</item> <!-- Corrected attribute -->
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <!-- Style for the Next and Submit buttons -->
+    <style name="ButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/button_background</item>
+        <item name="android:textColor">@color/button_text</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:paddingHorizontal">24dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_gravity">end</item>
+    </style>
+
+    <!-- Disabled Button Style -->
+    <style name="DisabledButtonStyle" parent="ButtonStyle">
+        <item name="android:backgroundTint">@color/disabled_button
+        </item> <!-- Corrected reference -->
+    </style>
+
+    <!-- Address options array for Spinner -->
+    <string-array name="address_options">
+        <item>Miss</item>
+        <item>Madam</item>
+        <item>Sir</item>
+        <item>I’d rather not say</item>
+    </string-array>
+</resources>

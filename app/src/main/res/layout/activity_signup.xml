@@ -1,0 +1,215 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Back Icon -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:contentDescription="Back"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:visibility="visible" />
+
+        <!-- Heading TextView for Email -->
+        <TextView
+            android:id="@+id/headingEmailTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="What is your Email?"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:paddingBottom="25dp"
+            android:paddingTop="16dp" />
+
+        <!-- Email Input -->
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/rounded_edittext_background"
+            android:padding="10dp" />
+
+        <!-- Next Arrow Icon after Email -->
+        <ImageButton
+            android:id="@+id/emailNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_forward_24"
+            android:contentDescription="Next"
+            android:visibility="gone"
+            android:layout_gravity="end"
+            android:paddingTop="25dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <!-- Heading TextView for Name -->
+        <TextView
+            android:id="@+id/headingNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="What is Your Name?"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp"
+            android:visibility="gone" />
+
+        <!-- First Name and Last Name Fields -->
+        <LinearLayout
+            android:id="@+id/nameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/firstNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="First Name"
+                android:background="@drawable/rounded_edittext_background"
+                android:padding="10dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <EditText
+                android:id="@+id/lastNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Last Name"
+                android:background="@drawable/rounded_edittext_background"
+                android:padding="10dp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/nameNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_forward_24"
+            android:contentDescription="Next"
+            android:visibility="gone"
+            android:layout_gravity="end"
+            android:paddingTop="25dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <!-- Heading TextView for Date of Birth -->
+        <TextView
+            android:id="@+id/headingDobTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="What is Your Date of Birth?"
+            android:textSize="20sp"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp"
+            android:visibility="gone" />
+
+        <!-- Date of Birth Input -->
+        <EditText
+            android:id="@+id/dobEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date of Birth (DD/MM/YYYY)"
+            android:inputType="date"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/dobNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_forward_24"
+            android:contentDescription="Next"
+            android:visibility="gone"
+            android:layout_gravity="end"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <!-- Heading TextView for Password -->
+        <TextView
+            android:id="@+id/headingPasswordTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Define your Password"
+            android:textSize="20sp"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Define your Password"
+            android:inputType="textPassword"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/passwordNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_forward_24"
+            android:contentDescription="Next"
+            android:visibility="gone"
+            android:layout_gravity="end"
+            android:paddingTop="25dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <!-- Heading TextView for Mobile Number Verification -->
+        <TextView
+            android:id="@+id/headingMobileTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Verify your Mobile Number"
+            android:textSize="20sp"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp"
+            android:visibility="gone" />
+
+        <!-- Country Code Spinner -->
+        <Spinner
+            android:id="@+id/countryCodeSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <!-- Mobile Number Input -->
+        <EditText
+            android:id="@+id/mobileEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mobile Number"
+            android:inputType="phone"
+            android:background="@drawable/rounded_edittext_background"
+            android:padding="10dp"
+            android:visibility="gone" />
+
+        <!-- Do it Later Button -->
+        <Button
+            android:id="@+id/doItLaterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I will do it later"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/mobileNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_forward_24"
+            android:contentDescription="Next"
+            android:visibility="gone"
+            android:layout_gravity="end"
+            android:paddingTop="25dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+    </LinearLayout>
+</RelativeLayout>
