@@ -1,221 +1,105 @@
 package com.example.myapplication;
 
-import android.app.DatePickerDialog;
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import java.util.Calendar;
 import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.textfield.TextInputEditText;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private TextView headingTextView;
-    private EditText emailEditText, firstNameEditText, lastNameEditText, dobEditText, passwordEditText, phoneEditText;
-    private ImageButton backButton, emailNextButton, nameNextButton, dobNextButton, passwordNextButton, phoneNextButton;
-    private LinearLayout nameLayout;
-    private DatabaseHelper databaseHelper; // Instance of DatabaseHelper
+    private TextInputEditText fullNameEditText, emailEditText, mobileEditText, passwordEditText, confirmPasswordEditText;
+    private CheckBox termsCheckBox;
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        // Link all views
-        headingTextView = findViewById(R.id.headingEmailTextView);
-        backButton = findViewById(R.id.backButton);
+        // Initialize views
+        fullNameEditText = findViewById(R.id.fullNameEditText);
         emailEditText = findViewById(R.id.emailEditText);
-        emailNextButton = findViewById(R.id.emailNextButton);
-        nameLayout = findViewById(R.id.nameLayout);
-        firstNameEditText = findViewById(R.id.firstNameEditText);
-        lastNameEditText = findViewById(R.id.lastNameEditText);
-        nameNextButton = findViewById(R.id.nameNextButton);
-        dobEditText = findViewById(R.id.dobEditText);
-        dobNextButton = findViewById(R.id.dobNextButton);
+        mobileEditText = findViewById(R.id.mobileEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
-        passwordNextButton = findViewById(R.id.passwordNextButton);
-        phoneEditText = findViewById(R.id.mobileEditText);
-        phoneNextButton = findViewById(R.id.mobileNextButton);
+        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
+        termsCheckBox = findViewById(R.id.termsCheckBox);
+        registerButton = findViewById(R.id.registerButton);
 
-        // Initialize DatabaseHelper
-        databaseHelper = new DatabaseHelper(this);
-
-        // Show "Next" button when email is filled
-        emailEditText.addTextChangedListener(new TextWatcher() {
+        // Handle Register button click
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void afterTextChanged(Editable s) {
-                emailNextButton.setVisibility(isValidEmail(s.toString().trim()) ? View.VISIBLE : View.GONE);
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
+            public void onClick(View v) {
+                if (!termsCheckBox.isChecked()) {
+                    Toast.makeText(SignupActivity.this, "You must agree to the terms and conditions", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        emailNextButton.setOnClickListener(v -> {
-            if (isValidEmail(emailEditText.getText().toString().trim())) {
-                moveToNameSection();
-            } else {
-                emailEditText.setError("Enter a valid email address");
-            }
-        });
+                // Retrieve input values
+                String fullName = fullNameEditText.getText().toString();
+                String email = emailEditText.getText().toString();
+                String mobile = mobileEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                String confirmPassword = confirmPasswordEditText.getText().toString();
 
-        // Back button setup
-        backButton.setOnClickListener(v -> {
-            if (phoneEditText.getVisibility() == View.VISIBLE) {
-                moveToPasswordSection();
-            } else if (passwordEditText.getVisibility() == View.VISIBLE) {
-                moveToDobSection();
-            } else if (dobEditText.getVisibility() == View.VISIBLE) {
-                moveToNameSection();
-            } else if (nameLayout.getVisibility() == View.VISIBLE) {
-                moveToEmailSection();
-            }
-        });
+                if (fullName.isEmpty() || email.isEmpty() || mobile.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                    Toast.makeText(SignupActivity.this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
+                } else if (!password.equals(confirmPassword)) {
+                    Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Create RegisterRequest object
+                    RegisterRequest registerRequest = new RegisterRequest(fullName, email, mobile, password);
 
-        // Show "Next" button when both first and last names are filled
-        TextWatcher nameWatcher = new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                boolean isNameFilled = !firstNameEditText.getText().toString().trim().isEmpty()
-                        && !lastNameEditText.getText().toString().trim().isEmpty();
-                nameNextButton.setVisibility(isNameFilled ? View.VISIBLE : View.GONE);
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        };
-        firstNameEditText.addTextChangedListener(nameWatcher);
-        lastNameEditText.addTextChangedListener(nameWatcher);
+                    // Use RetrofitClient to get the Retrofit instance
+                    Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+                    ApiService apiService = retrofit.create(ApiService.class);
 
-        nameNextButton.setOnClickListener(v -> moveToDobSection());
+                    // Make the API call using the register endpoint
+                    Call<RegisterResponse> call = apiService.register(registerRequest);
+                    call.enqueue(new Callback<RegisterResponse>() {
+                        @Override
+                        public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                            if (response.isSuccessful()) {
+                                // Handle successful registration
+                                RegisterResponse registerResponse = response.body();
 
-        // Set up DOB EditText with a DatePicker
-        dobEditText.setOnClickListener(v -> showDatePicker());
-        dobEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                dobNextButton.setVisibility(s.toString().trim().isEmpty() ? View.GONE : View.VISIBLE);
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
+                                if (registerResponse != null) {
+                                    // Check if the message or any other success criteria are met
+                                    Toast.makeText(SignupActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
-        dobNextButton.setOnClickListener(v -> moveToPasswordSection());
+                                    // Start the login activity after successful registration
+                                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    // Handle case where response body is null (although unlikely if API is working correctly)
+                                    Toast.makeText(SignupActivity.this, "Registration failed: No response body", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                // Handle response error (e.g., 400 or 500 HTTP error)
+                                Toast.makeText(SignupActivity.this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-        // Show "Next" button when password is filled
-        passwordEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                passwordNextButton.setVisibility(s.toString().trim().isEmpty() ? View.GONE : View.VISIBLE);
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
 
-        passwordNextButton.setOnClickListener(v -> moveToPhoneSection());
-
-        // Show "Next" button when phone number is filled
-        phoneEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                phoneNextButton.setVisibility(s.toString().trim().isEmpty() ? View.GONE : View.VISIBLE);
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        });
-
-        phoneNextButton.setOnClickListener(v -> {
-            if (isValidPhoneNumber(phoneEditText.getText().toString().trim())) {
-                saveUserToDatabase();
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                phoneEditText.setError("Enter a valid phone number");
+                        @Override
+                        public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                            // Handle network or other errors
+                            Toast.makeText(SignupActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
     }
-
-    private void showSection(String heading, boolean backVisible, boolean emailVisible,
-                             boolean nameLayoutVisible, boolean dobVisible, boolean passwordVisible, boolean phoneVisible) {
-        headingTextView.setText(heading);
-        backButton.setVisibility(backVisible ? View.VISIBLE : View.GONE);
-        emailEditText.setVisibility(emailVisible ? View.VISIBLE : View.GONE);
-        emailNextButton.setVisibility(emailVisible && !emailEditText.getText().toString().trim().isEmpty() ? View.VISIBLE : View.GONE);
-        nameLayout.setVisibility(nameLayoutVisible ? View.VISIBLE : View.GONE);
-        nameNextButton.setVisibility(nameLayoutVisible && !firstNameEditText.getText().toString().trim().isEmpty() &&
-                !lastNameEditText.getText().toString().trim().isEmpty() ? View.VISIBLE : View.GONE);
-        dobEditText.setVisibility(dobVisible ? View.VISIBLE : View.GONE);
-        dobNextButton.setVisibility(dobVisible && !dobEditText.getText().toString().trim().isEmpty() ? View.VISIBLE : View.GONE);
-        passwordEditText.setVisibility(passwordVisible ? View.VISIBLE : View.GONE);
-        passwordNextButton.setVisibility(passwordVisible && !passwordEditText.getText().toString().trim().isEmpty() ? View.VISIBLE : View.GONE);
-        phoneEditText.setVisibility(phoneVisible ? View.VISIBLE : View.GONE);
-        phoneNextButton.setVisibility(phoneVisible && !phoneEditText.getText().toString().trim().isEmpty() ? View.VISIBLE : View.GONE);
-    }
-
-    private void moveToEmailSection() {
-        showSection("What is Your Email?", false, true, false, false, false, false);
-    }
-
-    private void moveToNameSection() {
-        showSection("What is Your Name?", true, false, true, false, false, false);
-    }
-
-    private void moveToDobSection() {
-        showSection("What is Your Date of Birth?", true, false, false, true, false, false);
-    }
-
-    private void moveToPasswordSection() {
-        showSection("Define your Password", true, false, false, false, true, false);
-    }
-
-    private void moveToPhoneSection() {
-        showSection("Verify your Mobile Number", true, false, false, false, false, true);
-    }
-
-    private void showDatePicker() {
-        Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(SignupActivity.this,
-                (DatePicker view, int year, int month, int dayOfMonth) -> dobEditText.setText(dayOfMonth + "/" + (month + 1) + "/" + year),
-                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
-
-    private boolean isValidEmail(String email) {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private boolean isValidPhoneNumber(String phoneNumber) {
-        return phoneNumber.length() == 10 && Patterns.PHONE.matcher(phoneNumber).matches();
-    }
-
-    private void saveUserToDatabase() {
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("email", emailEditText.getText().toString().trim());
-        values.put("first_name", firstNameEditText.getText().toString().trim());
-        values.put("last_name", lastNameEditText.getText().toString().trim());
-        values.put("dob", dobEditText.getText().toString().trim());
-        values.put("password", passwordEditText.getText().toString().trim());
-        values.put("phone", phoneEditText.getText().toString().trim());
-        values.put("role", "Customer");  // You can adjust the role as needed
-
-        long newRowId = db.insert("users", null, values);
-        if (newRowId == -1) {
-            // Insert failed
-            Toast.makeText(this, "Error saving user to database", Toast.LENGTH_SHORT).show();
-        } else {
-            // Insert succeeded
-            Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show();
-        }
-    }
-
 }

@@ -1,215 +1,139 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#F9F9F9">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <!-- Back Icon -->
-        <ImageButton
-            android:id="@+id/backButton"
+        <!-- Back Arrow -->
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_arrow_back_24"
-            android:contentDescription="Back"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:visibility="visible" />
+            android:contentDescription="Back Arrow"
+            android:layout_marginBottom="16dp" />
 
-        <!-- Heading TextView for Email -->
+        <!-- Title -->
         <TextView
-            android:id="@+id/headingEmailTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="What is your Email?"
+            android:text="Register"
+            android:textSize="20sp"
+            android:textColor="#000"
             android:textStyle="bold"
-            android:textSize="28sp"
-            android:paddingBottom="25dp"
-            android:paddingTop="16dp" />
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Full Name Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fullNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:padding="12dp"
+                android:drawablePadding="8dp"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Email Input -->
-        <EditText
-            android:id="@+id/emailEditText"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:background="@drawable/rounded_edittext_background"
-            android:padding="10dp" />
+            android:layout_marginTop="8dp">
 
-        <!-- Next Arrow Icon after Email -->
-        <ImageButton
-            android:id="@+id/emailNextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_24"
-            android:contentDescription="Next"
-            android:visibility="gone"
-            android:layout_gravity="end"
-            android:paddingTop="25dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless" />
-
-        <!-- Heading TextView for Name -->
-        <TextView
-            android:id="@+id/headingNameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="What is Your Name?"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:paddingBottom="8dp"
-            android:paddingTop="16dp"
-            android:visibility="gone" />
-
-        <!-- First Name and Last Name Fields -->
-        <LinearLayout
-            android:id="@+id/nameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <EditText
-                android:id="@+id/firstNameEditText"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="First Name"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="10dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
-
-            <EditText
-                android:id="@+id/lastNameEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Last Name"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="10dp" />
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/nameNextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_24"
-            android:contentDescription="Next"
-            android:visibility="gone"
-            android:layout_gravity="end"
-            android:paddingTop="25dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless" />
-
-        <!-- Heading TextView for Date of Birth -->
-        <TextView
-            android:id="@+id/headingDobTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="What is Your Date of Birth?"
-            android:textSize="20sp"
-            android:paddingBottom="8dp"
-            android:paddingTop="16dp"
-            android:visibility="gone" />
-
-        <!-- Date of Birth Input -->
-        <EditText
-            android:id="@+id/dobEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Date of Birth (DD/MM/YYYY)"
-            android:inputType="date"
-            android:visibility="gone" />
-
-        <ImageButton
-            android:id="@+id/dobNextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_24"
-            android:contentDescription="Next"
-            android:visibility="gone"
-            android:layout_gravity="end"
-            android:background="?android:attr/selectableItemBackgroundBorderless" />
-
-        <!-- Heading TextView for Password -->
-        <TextView
-            android:id="@+id/headingPasswordTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Define your Password"
-            android:textSize="20sp"
-            android:paddingBottom="8dp"
-            android:paddingTop="16dp"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Define your Password"
-            android:inputType="textPassword"
-            android:visibility="gone" />
-
-        <ImageButton
-            android:id="@+id/passwordNextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_24"
-            android:contentDescription="Next"
-            android:visibility="gone"
-            android:layout_gravity="end"
-            android:paddingTop="25dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless" />
-
-        <!-- Heading TextView for Mobile Number Verification -->
-        <TextView
-            android:id="@+id/headingMobileTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Verify your Mobile Number"
-            android:textSize="20sp"
-            android:paddingBottom="8dp"
-            android:paddingTop="16dp"
-            android:visibility="gone" />
-
-        <!-- Country Code Spinner -->
-        <Spinner
-            android:id="@+id/countryCodeSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+                android:padding="12dp"
+                android:drawableLeft="@drawable/baseline_email_24"
+                android:drawablePadding="8dp"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Mobile Number Input -->
-        <EditText
-            android:id="@+id/mobileEditText"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mobile Number"
-            android:inputType="phone"
-            android:background="@drawable/rounded_edittext_background"
-            android:padding="10dp"
-            android:visibility="gone" />
+            android:layout_marginTop="8dp">
 
-        <!-- Do it Later Button -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/mobileEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawablePadding="8dp"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Password Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:layout_marginTop="8dp"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:drawableLeft="@drawable/baseline_password_24"
+                android:drawablePadding="8dp"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Confirm Password Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            android:layout_marginTop="8dp"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/confirmPasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Terms & Conditions Checkbox -->
+        <CheckBox
+            android:id="@+id/termsCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="By creating account you agree to our terms and conditions and privacy policy"
+            android:textSize="12sp" />
+
+        <!-- Register Button -->
         <Button
-            android:id="@+id/doItLaterButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="I will do it later"
-            android:visibility="gone" />
+            android:text="Register"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#1B5E20" />
 
-        <ImageButton
-            android:id="@+id/mobileNextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_forward_24"
-            android:contentDescription="Next"
-            android:visibility="gone"
-            android:layout_gravity="end"
-            android:paddingTop="25dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless" />
     </LinearLayout>
-</RelativeLayout>
+</ScrollView>

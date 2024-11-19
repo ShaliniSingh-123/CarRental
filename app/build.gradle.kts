@@ -35,6 +35,11 @@ android {
 }
 
 dependencies {
+
+
+    implementation(libs.retrofit)
+    implementation(libs.gsonConverter)
+    implementation(libs.loggingInterceptor) // OkHttp Logging Interceptor dependency
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
