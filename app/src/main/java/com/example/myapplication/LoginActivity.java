@@ -73,7 +73,10 @@ public class LoginActivity extends AppCompatActivity {
                     if ("Login successful".equals(loginResponse.getMessage())) {
                         Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
-                        intent.putExtra("user_email", email);
+                        intent.putExtra("user_email", loginResponse.getUser().getEmail());
+                        intent.putExtra("user_fullName", loginResponse.getUser().getFullName());
+
+
                         startActivity(intent);
                         finish();  // Close the login activity
                     } else {

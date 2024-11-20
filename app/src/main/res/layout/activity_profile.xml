@@ -115,7 +115,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/baseline_chevron_right_24"
-            android:tint="#666666" />
+            app:tint="#666666" />
       </RelativeLayout>
 
       <View
@@ -146,7 +146,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/baseline_chevron_right_24"
-            android:tint="#666666" />
+            app:tint="#666666" />
       </RelativeLayout>
 
       <View
@@ -177,7 +177,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/baseline_chevron_right_24"
-            android:tint="#666666" />
+            app:tint="#666666" />
       </RelativeLayout>
 
       <View
@@ -207,7 +207,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/baseline_chevron_right_24"
-            android:tint="#666666" />
+            app:tint="#666666" />
       </RelativeLayout>
 
       <View
@@ -236,7 +236,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/baseline_chevron_right_24"
-            android:tint="#666666" />
+            app:tint="#666666" />
       </RelativeLayout>
       <View
           android:layout_width="match_parent"
@@ -265,7 +265,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/baseline_chevron_right_24"
-            android:tint="#666666" />
+            app:tint="#666666" />
       </RelativeLayout>
 
       <View
@@ -295,7 +295,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/baseline_chevron_right_24"
-            android:tint="#666666" />
+            app:tint="#666666" />
       </RelativeLayout>
 
       <View
@@ -325,7 +325,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/baseline_chevron_right_24"
-            android:tint="#666666" />
+            app:tint="#666666" />
       </RelativeLayout>
     </LinearLayout>
   </LinearLayout>

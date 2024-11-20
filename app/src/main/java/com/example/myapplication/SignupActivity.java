@@ -93,6 +93,7 @@ public class SignupActivity extends AppCompatActivity {
 
                                     // Start the login activity after successful registration
                                     Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+
                                     startActivity(intent);
                                     finish();
                                 } else {

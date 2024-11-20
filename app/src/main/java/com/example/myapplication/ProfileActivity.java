@@ -19,6 +19,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // Get the passed data from the Intent
+        String email = getIntent().getStringExtra("user_email");
+        String fullName = getIntent().getStringExtra("user_fullName");
         // Initialize views
         profileName = findViewById(R.id.profile_name);
         profilePhone = findViewById(R.id.profile_phone);
@@ -34,7 +37,12 @@ public class ProfileActivity extends AppCompatActivity {
         bottomNavView = findViewById(R.id.bottomNavView);
 
         // Set up profile info
-        profileName.setText("Cameron Williamson");
+        if (fullName != null) {
+            profileName.setText(fullName); // Set the user's full name
+        }else{
+            profileName.setText("Cameron Williamson");
+        }
+
         profilePhone.setText("(219) 555-0114");
         profileImage.setImageResource(R.drawable.profile); // Replace with actual image resource if needed
 
