@@ -62,10 +62,11 @@ public class IdentificationActivity  extends AppCompatActivity {
             if (radioGroup.getCheckedRadioButtonId() == R.id.radio_national_id && nationalId.isEmpty()) {
                 Toast.makeText(this, "Please enter your National ID", Toast.LENGTH_SHORT).show();
             } else {
-                // Proceed to the next step
-                Toast.makeText(this, "Proceeding to the next step", Toast.LENGTH_SHORT).show();
-                // Add your next activity intent here
+                // Proceed to ConfirmActivity
+                Intent intent = new Intent(IdentificationActivity.this, ConfirmationActivity.class);
+                startActivity(intent);
             }
         });
+
     }
 }

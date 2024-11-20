@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -41,9 +42,17 @@ public class PersonalInfoActivity extends AppCompatActivity {
             if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty()) {
                 Toast.makeText(PersonalInfoActivity.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(PersonalInfoActivity.this,
-                        "Name: " + name + "\nEmail: " + email + "\nPhone: " + phone + "\nAddress: " + address,
-                        Toast.LENGTH_LONG).show();
+                // Create an Intent to navigate to IdentificationActivity
+                Intent intent = new Intent(PersonalInfoActivity.this, IdentificationActivity.class);
+
+                // Pass data to IdentificationActivity
+                intent.putExtra("name", name);
+                intent.putExtra("email", email);
+                intent.putExtra("phone", phone);
+                intent.putExtra("address", address);
+
+                // Start IdentificationActivity
+                startActivity(intent);
             }
         });
     }

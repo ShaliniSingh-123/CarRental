@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.content.Intent;
 
@@ -22,6 +23,7 @@ public class SignupActivity extends AppCompatActivity {
     private CheckBox termsCheckBox;
     private Button registerButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,18 @@ public class SignupActivity extends AppCompatActivity {
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         termsCheckBox = findViewById(R.id.termsCheckBox);
         registerButton = findViewById(R.id.registerButton);
+
+        // Initialize the back arrow
+        ImageView backArrow = findViewById(R.id.backArrow);
+
+        // Set click listener on back arrow
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Finish the current activity and go back to the previous one
+                onBackPressed();
+            }
+        });
 
         // Handle Register button click
         registerButton.setOnClickListener(new View.OnClickListener() {

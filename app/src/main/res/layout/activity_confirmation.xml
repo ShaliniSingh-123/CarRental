@@ -21,6 +21,7 @@
 
         <!-- Title -->
         <TextView
+            android:id="@+id/confirmation_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Confirmation"
@@ -42,7 +43,7 @@
 
             <!-- ImageView on the left -->
             <ImageView
-                android:layout_width="0dp"
+                android:layout_width="100dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
                 android:src="@drawable/image4" />
@@ -67,7 +68,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$220/day"
+                    android:text="$30/day"
                     android:textSize="14sp"
                     android:textColor="#4CAF50"
                     android:fontFamily="sans-serif" />
@@ -143,7 +144,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$220"
+            android:text="$30"
             android:gravity="end"
             android:textColor="#000000"
             android:textSize="14sp"
@@ -160,7 +161,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$440"
+            android:text="$60"
             android:gravity="end"
             android:textColor="#000000"
             android:textSize="14sp"
@@ -177,7 +178,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$440"
+            android:text="$60"
             android:gravity="end"
             android:textColor="#000000"
             android:textSize="16sp"

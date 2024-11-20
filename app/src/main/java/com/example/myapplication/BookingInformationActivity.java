@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,9 +52,21 @@ public class BookingInformationActivity extends AppCompatActivity {
             String pickUpTime = pickUpDateTime.getText().toString();
             String returnTime = returnDateTime.getText().toString();
 
-            String message = "Pickup: " + pickUp + "\nReturn: " + returnLoc +
-                    "\nPickup DateTime: " + pickUpTime + "\nReturn DateTime: " + returnTime;
-            Toast.makeText(BookingInformationActivity.this, message, Toast.LENGTH_LONG).show();
+            if (pickUp.isEmpty() || returnLoc.isEmpty() || pickUpTime.isEmpty() || returnTime.isEmpty()) {
+                Toast.makeText(BookingInformationActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            } else {
+                // Create an Intent to start PersonalActivity
+                Intent intent = new Intent(BookingInformationActivity.this, PersonalInfoActivity.class);
+
+                // Pass data to the next activity (if needed)
+                intent.putExtra("pickupLocation", pickUp);
+                intent.putExtra("returnLocation", returnLoc);
+                intent.putExtra("pickupDateTime", pickUpTime);
+                intent.putExtra("returnDateTime", returnTime);
+
+                // Start PersonalActivity
+                startActivity(intent);
+            }
         });
     }
 

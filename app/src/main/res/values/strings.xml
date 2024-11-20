@@ -19,7 +19,7 @@
         <item name="android:backgroundTint">@color/input_border</item>
         <item name="android:padding">12dp</item>
         <item name="android:textColor">@color/text_color</item>
-        <item name="android:textColorHint">@color/input_border</item> <!-- Corrected attribute -->
+        <item name="android:textColorHint">@color/input_border</item>
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 

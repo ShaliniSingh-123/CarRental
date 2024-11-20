@@ -1,124 +1,104 @@
 package com.example.myapplication;
 
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import android.content.Intent;
 public class ProfileActivity extends AppCompatActivity {
 
-    private DatabaseHelper dbHelper;
-    private TextView tvProfileName, tvProfileEmail, tvProfilePhone, tvEditProfilePicture;
-    private TextView tvVerifyID, tvAddMiniBio, tvEditTravelPreferences;
+    private TextView profileName, profilePhone;
+    private ImageView profileImage;
+    private TextView editProfile, myBooking, notification, languages, settings, termsConditions, customerSupport, rateUs;
+    private BottomNavigationView bottomNavView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Initialize database helper and UI components
-        dbHelper = new DatabaseHelper(this);
-        tvProfileName = findViewById(R.id.tvProfileName);
-        tvProfileEmail = findViewById(R.id.tvProfileEmail);
-        tvProfilePhone = findViewById(R.id.tvProfilePhone);
-        tvEditProfilePicture = findViewById(R.id.tvEditProfilePicture);
+        // Initialize views
+        profileName = findViewById(R.id.profile_name);
+        profilePhone = findViewById(R.id.profile_phone);
+        profileImage = findViewById(R.id.profile_image);
+        editProfile = findViewById(R.id.edit_profile);
+        myBooking = findViewById(R.id.my_booking);
+        notification = findViewById(R.id.notification);
+        languages = findViewById(R.id.languages);
+        settings = findViewById(R.id.settings);
+        termsConditions = findViewById(R.id.terms_conditions);
+        customerSupport = findViewById(R.id.customer_support);
+        rateUs = findViewById(R.id.rate_us);
+        bottomNavView = findViewById(R.id.bottomNavView);
 
-        // Initialize new UI components
-        tvVerifyID = findViewById(R.id.tvVerifyID);
-        tvAddMiniBio = findViewById(R.id.tvAddMiniBio);
-        tvEditTravelPreferences = findViewById(R.id.tvEditTravelPreferences);
+        // Set up profile info
+        profileName.setText("Cameron Williamson");
+        profilePhone.setText("(219) 555-0114");
+        profileImage.setImageResource(R.drawable.profile); // Replace with actual image resource if needed
 
-        // Retrieve the email of the logged-in user from Intent
-        String userEmail = getIntent().getStringExtra("user_email");
-
-        // Fetch and display user details
-        displayUserProfile(userEmail);
-
-        // Set up bottom navigation
-        setupBottomNavigation();
-
-        // Set the click listener for editing profile picture
-        tvEditProfilePicture.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, UploadProfilePictureActivity.class);
-            startActivity(intent);
+        // Set up onClickListeners for options
+        editProfile.setOnClickListener(v -> {
+            // Handle Edit Profile click
+            // Intent to edit profile activity
         });
 
-        // Set click listener for "Verify my ID"
-        tvVerifyID.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, VerifyMyIdActivity.class);
-            startActivity(intent);
+        myBooking.setOnClickListener(v -> {
+            // Handle My Booking click
+            // Intent to My Booking activity
         });
 
-        // Set click listener for "Add a mini bio"
-        tvAddMiniBio.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, AddMiniBioActivity.class);
-            startActivity(intent);
+        notification.setOnClickListener(v -> {
+            // Handle Notifications click
+            // Intent to Notifications activity
         });
 
-        // Set click listener for "Edit travel preferences"
-        tvEditTravelPreferences.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, TravelPreferencesActivity.class);
-            startActivity(intent);
+        languages.setOnClickListener(v -> {
+            // Handle Languages click
+            // Intent to Languages activity
         });
 
-        // Set the click listener for editing personal details
-        TextView tvEditPersonalDetails = findViewById(R.id.tvEditPersonalDetails);
-        tvEditPersonalDetails.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, PersonalDetailsActivity.class);
-            startActivity(intent);
+        settings.setOnClickListener(v -> {
+            // Handle Settings click
+            // Intent to Settings activity
         });
-    }
 
-    private void displayUserProfile(String email) {
-        Cursor cursor = dbHelper.getUserDetails(email);
-        if (cursor != null && cursor.moveToFirst()) {
-            String firstName = cursor.getString(cursor.getColumnIndex("first_name"));
-            String lastName = cursor.getString(cursor.getColumnIndex("last_name"));
-            String phone = cursor.getString(cursor.getColumnIndex("phone"));
+        termsConditions.setOnClickListener(v -> {
+            // Handle Terms and Conditions click
+            // Intent to Terms and Conditions activity
+        });
 
-            tvProfileName.setText(firstName + " " + lastName);
-            tvProfileEmail.setText(email);
-            tvProfilePhone.setText(phone);
+        customerSupport.setOnClickListener(v -> {
+            // Handle Customer Support click
+            // Intent to Customer Support activity
+        });
 
-            cursor.close();
-        } else {
-            showToast("User details not found.");
-        }
-    }
+        rateUs.setOnClickListener(v -> {
+            // Handle Rate Us click
+            // Intent to Rate Us activity
+        });
 
-    private void setupBottomNavigation() {
-        BottomNavigationView bottomNavView = findViewById(R.id.bottomNavView);
-        bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.nav_search) {
-                    startActivity(new Intent(ProfileActivity.this, DashboardActivity.class));
-                    return true;
-                } else if (id == R.id.nav_publish) {
-                    startActivity(new Intent(ProfileActivity.this, PublishActivity.class));
-                    return true;
-                } else if (id == R.id.nav_your_rides) {
-                    startActivity(new Intent(ProfileActivity.this, YourRidesActivity.class));
-                    return true;
-                } else if (id == R.id.nav_inbox) {
-                    startActivity(new Intent(ProfileActivity.this, InboxActivity.class));
-                    return true;
-                } else if (id == R.id.nav_profile) {
-                    return true;
-                }
-                return false;
+        // Set up Bottom Navigation
+        bottomNavView.setOnNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.nav_search) {
+                startActivity(new Intent(ProfileActivity.this, DashboardActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.nav_publish) {
+                startActivity(new Intent(ProfileActivity.this, PublishActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.nav_your_rides) {
+                startActivity(new Intent(ProfileActivity.this, YourRidesActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.nav_inbox) {
+                startActivity(new Intent(ProfileActivity.this, InboxActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.nav_profile) {
+                return true;
             }
-        });
-        bottomNavView.setSelectedItemId(R.id.nav_profile);
-    }
+            return false;
 
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    });
+
     }
 }
