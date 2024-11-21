@@ -1,84 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="#FFFFFF">
+    tools:context=".CustomerSupportActivity">
 
-    <!-- Customer Support Header -->
+    <!-- Title: Customer support -->
     <TextView
-        android:id="@+id/tv_customer_support"
+        android:id="@+id/supportTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Customer support"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#000000"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"/>
 
-    <!-- How can we help you? -->
+    <!-- Subtitle: How can we help you -->
     <TextView
-        android:id="@+id/tv_help_prompt"
+        android:id="@+id/helpSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="How can we help you?"
         android:textSize="16sp"
-        android:textColor="#757575"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/supportTitle"
+        android:gravity="center"/>
 
-    <!-- Phone Number Section -->
+    <!-- Phone Number Contact Card -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/phoneLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="start|center_vertical"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_background">
+        android:background="@drawable/rounded_background"
+        android:padding="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/helpSubtitle"
+        android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/phone"
-        android:contentDescription="Phone Icon"
-        android:layout_marginStart="10dp"/>
+            android:tint="@color/green" />
 
         <TextView
-            android:id="@+id/tv_phone_number"
+            android:id="@+id/phoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="(704) 555-0127"
             android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp" />
     </LinearLayout>
 
-    <!-- Email Section -->
+    <!-- Email Contact Card -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/emailLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="start|center_vertical"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_background">
+        android:background="@drawable/rounded_background"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/baseline_email_24"
-        android:contentDescription="Email Icon"
-        android:layout_marginStart="10dp"/>
+            android:tint="@color/green" />
 
         <TextView
-            android:id="@+id/tv_email"
+            android:id="@+id/emailId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="kenzilawson@example.com"
+            android:text="kenzi.lawson@example.com"
             android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp" />
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,7 +48,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Set up onClickListeners for options
         editProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);        });
+            // Redirect to EditProfileActivity
+            Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+            startActivity(intent);
+        });
+
 
         myBooking.setOnClickListener(v -> {
             // Handle My Booking click

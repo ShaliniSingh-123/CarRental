@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change profile photo"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btn_camera"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Camera"
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/baseline_camera_alt_24"
+        android:paddingStart="16dp"
+        android:gravity="start|center_vertical"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#00FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Gallery"
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/baseline_browse_gallery_24"
+        android:paddingStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="start|center_vertical"
+        android:backgroundTint="#00FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_remove"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Remove image"
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/baseline_delete_24"
+        android:drawablePadding="8dp"
+        android:paddingStart="16dp"
+        android:gravity="start|center_vertical"
+        android:backgroundTint="#00FFFFFF" />
+</LinearLayout>
