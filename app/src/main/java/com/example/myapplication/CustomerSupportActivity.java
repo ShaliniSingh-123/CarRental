@@ -14,8 +14,8 @@ public class CustomerSupportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_support);
 
         // Initialize TextViews
-        phoneNumberTextView = findViewById(R.id.tv_phone_number);
-        emailTextView = findViewById(R.id.tv_email);
+        phoneNumberTextView = findViewById(R.id.phoneNumber);
+        emailTextView = findViewById(R.id.emailId);
 
         // Set dynamic data if required (e.g., phone number or email)
         phoneNumberTextView.setText("(704) 555-0127");

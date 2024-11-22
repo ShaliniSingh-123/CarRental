@@ -1,9 +1,11 @@
 package com.example.myapplication;
 
-import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -14,16 +16,30 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-public class EditProfileActivity extends AppCompatActivity {
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class EditProfileActivity extends AppCompatActivity {
     private EditText etName, etEmail, etPhone, etAddress;
     private Button btnChange, btnUpdate;
     private ImageView profileImage, backButton;
-
     private static final int REQUEST_CAMERA = 1;
     private static final int REQUEST_GALLERY = 2;
+    private Uri selectedImageUri;
+    private Bitmap selectedImageBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,39 +51,22 @@ public class EditProfileActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.et_email);
         etPhone = findViewById(R.id.et_phone);
         etAddress = findViewById(R.id.et_address);
+        profileImage = findViewById(R.id.profile_image);
         btnChange = findViewById(R.id.btn_change);
         btnUpdate = findViewById(R.id.btn_update);
-        profileImage = findViewById(R.id.profile_image);
         backButton = findViewById(R.id.back_button);
 
-        // Handle "Change" Button click
+        // Show the bottom sheet dialog for changing profile image
         btnChange.setOnClickListener(v -> showBottomSheetDialog());
 
-        // Set default profile image
-        profileImage.setImageResource(R.drawable.profile); // Replace with actual image resource if needed
-
         // Handle Back Button click
-        backButton.setOnClickListener(v -> {
-            // Navigate back to the previous screen
-            finish();
-        });
+        backButton.setOnClickListener(v -> finish());
 
         // Handle Update Button click
-        btnUpdate.setOnClickListener(v -> {
-            String name = etName.getText().toString();
-            String email = etEmail.getText().toString();
-            String phone = etPhone.getText().toString();
-            String address = etAddress.getText().toString();
+        btnUpdate.setOnClickListener(v -> updateUserProfile());
 
-            // Check if any field is empty
-            if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty()) {
-                Toast.makeText(EditProfileActivity.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
-            } else {
-                // Save the updated profile information (e.g., store in database or shared preferences)
-                Toast.makeText(EditProfileActivity.this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
+        // Fetch and display user profile information
+        fetchUserProfile();
     }
 
     private void showBottomSheetDialog() {
@@ -76,22 +75,19 @@ public class EditProfileActivity extends AppCompatActivity {
         bottomSheetDialog.setContentView(bottomSheetView);
 
         // Handle Camera option
-        Button btnCamera = bottomSheetView.findViewById(R.id.btn_camera);
-        btnCamera.setOnClickListener(v -> {
+        bottomSheetView.findViewById(R.id.btn_camera).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             openCamera();
         });
 
         // Handle Gallery option
-        Button btnGallery = bottomSheetView.findViewById(R.id.btn_gallery);
-        btnGallery.setOnClickListener(v -> {
+        bottomSheetView.findViewById(R.id.btn_gallery).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             openGallery();
         });
 
         // Handle Remove Image option
-        Button btnRemove = bottomSheetView.findViewById(R.id.btn_remove);
-        btnRemove.setOnClickListener(v -> {
+        bottomSheetView.findViewById(R.id.btn_remove).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             removeProfileImage();
         });
@@ -114,24 +110,158 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void removeProfileImage() {
-        profileImage.setImageResource(R.drawable.profile); // Replace with placeholder image
+        profileImage.setImageResource(R.drawable.profile); // Placeholder image
+        selectedImageUri = null;
+        selectedImageBitmap = null;
         Toast.makeText(this, "Profile image removed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_CAMERA && data != null) {
-                // Handle Camera image
-                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-                profileImage.setImageBitmap(imageBitmap);
-            } else if (requestCode == REQUEST_GALLERY && data != null) {
-                // Handle Gallery image
-                Uri selectedImage = data.getData();
-                profileImage.setImageURI(selectedImage);
+        if (resultCode == RESULT_OK && data != null) {
+            if (requestCode == REQUEST_CAMERA) {
+                selectedImageBitmap = (Bitmap) data.getExtras().get("data");
+                profileImage.setImageBitmap(selectedImageBitmap);
+            } else if (requestCode == REQUEST_GALLERY) {
+                selectedImageUri = data.getData();
+                profileImage.setImageURI(selectedImageUri);
             }
         }
+    }
+
+    private void updateUserProfile() {
+        String name = etName.getText().toString();
+        String email = etEmail.getText().toString();
+        String phone = etPhone.getText().toString();
+        String address = etAddress.getText().toString();
+
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty()) {
+            Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+        } else {
+            if (selectedImageUri != null || selectedImageBitmap != null) {
+                uploadImageToServer(name, email, phone, address);
+            } else {
+                updateProfile(name, email, phone, address);
+            }
+        }
+    }
+
+    private void uploadImageToServer(String name, String email, String phone, String address) {
+        File file = getImageFile();
+        if (file == null) return;
+
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+
+        apiService.uploadImage(part).enqueue(new Callback<ImageResponse>() {
+            @Override
+            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    updateProfile(name, email, phone, address);
+                } else {
+                    Toast.makeText(EditProfileActivity.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ImageResponse> call, Throwable t) {
+                Toast.makeText(EditProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateProfile(String name, String email, String phone, String address) {
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+
+        RequestBody nameRequestBody = RequestBody.create(MultipartBody.FORM, name);
+        RequestBody emailRequestBody = RequestBody.create(MultipartBody.FORM, email);
+        RequestBody phoneRequestBody = RequestBody.create(MultipartBody.FORM, phone);
+        RequestBody addressRequestBody = RequestBody.create(MultipartBody.FORM, address);
+
+
+
+        apiService.updateUserProfileWithImage(nameRequestBody, emailRequestBody, phoneRequestBody, addressRequestBody)
+                .enqueue(new Callback<UserProfile>() {
+                    @Override
+                    public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(EditProfileActivity.this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(EditProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserProfile> call, Throwable t) {
+                        Toast.makeText(EditProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private MultipartBody.Part getImagePart(Uri imageUri) {
+        File file = new File(getRealPathFromURI(imageUri));
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        return MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+    }
+
+    private File getImageFile() {
+        File file = null;
+        if (selectedImageUri != null) {
+            file = new File(getRealPathFromURI(selectedImageUri));
+        } else if (selectedImageBitmap != null) {
+            file = new File(getCacheDir(), "profile_image.jpg");
+            try (FileOutputStream out = new FileOutputStream(file)) {
+                selectedImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return file;
+    }
+
+    private String getRealPathFromURI(Uri uri) {
+        ContentResolver resolver = getContentResolver();
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = resolver.query(uri, projection, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            String path = cursor.getString(columnIndex);
+            cursor.close();
+            return path;
+        }
+        return uri.getPath();
+    }
+
+    private void fetchUserProfile() {
+        String userId = "673ddbb366183c22033a9f4d"; // Replace with actual user ID
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        apiService.getUserProfile(userId).enqueue(new Callback<UserProfile>() {
+            @Override
+            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserProfile.User user = response.body().getUser();
+                    if (user != null) {
+                        etName.setText(user.getFullName());
+                        etEmail.setText(user.getEmail());
+                        etPhone.setText(user.getMobile());
+                        etAddress.setText(user.getAddress() != null ? user.getAddress() : "");
+                        Glide.with(EditProfileActivity.this)
+                                .load(user.getPhoto())
+                                .into(profileImage);
+                    }
+                } else {
+                    Toast.makeText(EditProfileActivity.this, "Failed to fetch profile", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserProfile> call, Throwable t) {
+                Toast.makeText(EditProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
