@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical">
+
+<!-- PICK UP AT -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="PICK UP AT"
+    android:textSize="16sp"
+    android:textColor="#000000"
+    android:layout_marginBottom="8dp"/>
+
+<Spinner
+    android:id="@+id/pickupSpinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/spinner_background"
+    android:layout_marginBottom="16dp"/>
+
+<!-- DROP OFF AT -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="DROP OFF AT"
+    android:textSize="16sp"
+    android:textColor="#000000"
+    android:layout_marginBottom="8dp"/>
+
+<Spinner
+    android:id="@+id/dropoffSpinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/spinner_background"
+    android:layout_marginBottom="16dp"/>
+
+<!-- PICK UP ON -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="PICK UP ON"
+    android:textSize="16sp"
+    android:textColor="#000000"
+    android:layout_marginBottom="8dp"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp">
+
+    <DatePicker
+        android:id="@+id/pickupDatePicker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"/>
+
+    <TimePicker
+        android:id="@+id/pickupTimePicker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"/>
+</LinearLayout>
+
+<!-- DROP OFF ON -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="DROP OFF ON"
+    android:textSize="16sp"
+    android:textColor="#000000"
+    android:layout_marginBottom="8dp"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp">
+
+    <DatePicker
+        android:id="@+id/dropoffDatePicker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"/>
+
+    <TimePicker
+        android:id="@+id/dropoffTimePicker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"/>
+</LinearLayout>
+
+<!-- SEARCH BUTTON -->
+<Button
+    android:id="@+id/searchButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/green"
+    android:text="SEARCH"
+    android:textColor="#FFFFFF"
+    android:textStyle="bold"/>
+</LinearLayout>
+    </ScrollView>
