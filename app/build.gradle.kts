@@ -39,6 +39,10 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.gsonConverter)
+    implementation(libs.glide)
+    annotationProcessor(libs.glideCompiler)
+
+    implementation (libs.okhttp)
     implementation(libs.loggingInterceptor) // OkHttp Logging Interceptor dependency
     implementation(libs.appcompat)
     implementation(libs.material)
