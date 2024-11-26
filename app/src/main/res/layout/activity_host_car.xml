@@ -1,0 +1,55 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/editCarModel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Car Model" />
+
+        <EditText
+            android:id="@+id/editCarMake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Car Make" />
+
+        <EditText
+            android:id="@+id/editCarYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Car Year" />
+
+        <EditText
+            android:id="@+id/editCarPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Price per Day" />
+
+        <EditText
+            android:id="@+id/editCarDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Car Description" />
+
+        <Button
+            android:id="@+id/buttonUploadImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Car Image" />
+
+        <Button
+            android:id="@+id/buttonHostCar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Host My Car" />
+    </LinearLayout>
+
+</ScrollView>

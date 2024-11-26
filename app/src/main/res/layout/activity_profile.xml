@@ -29,7 +29,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Profile"
-          android:textSize="18sp"
+          android:textSize="24sp"
           android:textStyle="bold"
           android:layout_marginStart="8dp"
           android:textColor="#000" />
@@ -96,7 +96,10 @@
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:padding="16dp">
+          android:padding="16dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:id="@+id/option_edit_profile">
 
         <TextView
             android:id="@+id/edit_profile"
@@ -127,7 +130,10 @@
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:padding="16dp">
+          android:padding="16dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:id="@+id/option_my_booking">
 
         <TextView
             android:id="@+id/my_booking"
@@ -158,7 +164,10 @@
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:padding="16dp">
+          android:padding="16dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:id="@+id/option_notification">
 
         <TextView
             android:id="@+id/notification"
@@ -180,35 +189,6 @@
             app:tint="#666666" />
       </RelativeLayout>
 
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="#EEEEEE" />
-
-      <!-- Add more options as needed -->
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="16dp">
-
-        <TextView
-            android:id="@+id/languages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Languages"
-            android:textSize="16sp"
-            android:drawableLeft="@drawable/language"
-            android:drawablePadding="8dp"
-            android:textColor="#000000" />
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/baseline_chevron_right_24"
-            app:tint="#666666" />
-      </RelativeLayout>
 
       <View
           android:layout_width="match_parent"
@@ -218,7 +198,10 @@
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:padding="16dp">
+          android:padding="16dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:id="@+id/option_settings">
 
         <TextView
             android:id="@+id/settings"
@@ -247,7 +230,10 @@
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:padding="16dp">
+          android:padding="16dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:id="@+id/option_terms_conditions">
 
         <TextView
             android:id="@+id/terms_conditions"
@@ -267,7 +253,6 @@
             android:src="@drawable/baseline_chevron_right_24"
             app:tint="#666666" />
       </RelativeLayout>
-
       <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
@@ -277,7 +262,42 @@
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:padding="16dp">
+          android:padding="16dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:id="@+id/option_faq">
+
+        <TextView
+            android:id="@+id/faq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FAQs"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/customer_support"
+            android:drawablePadding="8dp"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_chevron_right_24"
+            app:tint="#666666" />
+      </RelativeLayout>
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="#EEEEEE" />
+
+      <!-- Add more options as needed -->
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="16dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:id="@+id/option_customer_support">
 
         <TextView
             android:id="@+id/customer_support"
@@ -285,7 +305,7 @@
             android:layout_height="wrap_content"
             android:text="Customer Support"
             android:textSize="16sp"
-            android:drawableLeft="@drawable/customer_support"
+            android:drawableLeft="@drawable/headphone"
             android:drawablePadding="8dp"
             android:textColor="#000000" />
 
@@ -307,7 +327,10 @@
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:padding="16dp">
+          android:padding="16dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:id="@+id/option_rate_us">
 
         <TextView
             android:id="@+id/rate_us"
@@ -318,6 +341,37 @@
             android:drawableLeft="@drawable/rate"
             android:drawablePadding="8dp"
             android:textColor="#000000" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_chevron_right_24"
+            app:tint="#666666" />
+      </RelativeLayout>
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="#EEEEEE" />
+      <!-- Add logout -->
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="16dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:id="@+id/option_logout">
+
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/logout"
+            android:drawablePadding="8dp"
+            android:textColor="@color/red" />
 
         <ImageView
             android:layout_width="24dp"
@@ -338,5 +392,7 @@ android:layout_height="wrap_content"
 android:layout_alignParentBottom="true"
 android:background="@color/white"
 app:menu="@menu/bottom_nav_menu"
-app:labelVisibilityMode="labeled" />
+app:labelVisibilityMode="labeled"
+      app:itemIconTint="@color/nav_item_color"
+      app:itemTextColor="@color/nav_item_color"/>
     </RelativeLayout>

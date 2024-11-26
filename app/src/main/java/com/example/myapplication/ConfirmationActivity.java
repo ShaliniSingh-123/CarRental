@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ConfirmationActivity extends AppCompatActivity {
@@ -20,7 +21,10 @@ public class ConfirmationActivity extends AppCompatActivity {
         Button confirmButton = findViewById(R.id.confirmButton);
         confirmButton.setOnClickListener(v -> {
             Toast.makeText(this, "Booking Confirmed!", Toast.LENGTH_SHORT).show();
-            // Add booking confirmation logic here
+            Intent intent = new Intent(ConfirmationActivity.this, BookingSuccessActivity.class);
+            startActivity(intent);
+            finish();
         });
+
     }
 }

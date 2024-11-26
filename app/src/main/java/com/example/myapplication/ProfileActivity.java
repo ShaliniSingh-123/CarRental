@@ -4,14 +4,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.content.Intent;
+import androidx.appcompat.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.widget.Button;
 public class ProfileActivity extends AppCompatActivity {
 
     private TextView profileName, profilePhone;
     private ImageView profileImage;
-    private TextView editProfile, myBooking, notification, languages, settings, termsConditions, customerSupport, rateUs;
+    private RelativeLayout optionEditProfile, optionMyBooking,optionNotification,
+    optionSettings,optionTermsConditions,optionCustomerSupport,optionRateUs,optionLogout,optionFaq;
+
     private BottomNavigationView bottomNavView;
 
     @Override
@@ -26,20 +32,25 @@ public class ProfileActivity extends AppCompatActivity {
         profileName = findViewById(R.id.profile_name);
         profilePhone = findViewById(R.id.profile_phone);
         profileImage = findViewById(R.id.profile_image);
-        editProfile = findViewById(R.id.edit_profile);
-        myBooking = findViewById(R.id.my_booking);
-        notification = findViewById(R.id.notification);
-        languages = findViewById(R.id.languages);
-        settings = findViewById(R.id.settings);
-        termsConditions = findViewById(R.id.terms_conditions);
-        customerSupport = findViewById(R.id.customer_support);
-        rateUs = findViewById(R.id.rate_us);
+        optionEditProfile  = findViewById(R.id.option_edit_profile);
+        optionMyBooking  = findViewById(R.id.option_my_booking);
+        optionNotification = findViewById(R.id.option_notification);
+        optionSettings = findViewById(R.id.option_settings);
+        optionTermsConditions = findViewById(R.id.option_terms_conditions);
+        optionCustomerSupport = findViewById(R.id.option_customer_support);
+        optionRateUs = findViewById(R.id.option_rate_us);
+        optionLogout = findViewById(R.id.option_logout);
+        optionFaq = findViewById(R.id.option_faq);
+        // Initialize views
         bottomNavView = findViewById(R.id.bottomNavView);
+
+        // Set Profile tab as active
+        bottomNavView.setSelectedItemId(R.id.nav_profile);
 
         // Set up profile info
         if (fullName != null) {
             profileName.setText(fullName); // Set the user's full name
-        }else{
+        } else {
             profileName.setText("Cameron Williamson");
         }
 
@@ -47,68 +58,95 @@ public class ProfileActivity extends AppCompatActivity {
         profileImage.setImageResource(R.drawable.profile); // Replace with actual image resource if needed
 
         // Set up onClickListeners for options
-        editProfile.setOnClickListener(v -> {
+        optionEditProfile.setOnClickListener(v -> {
             // Redirect to EditProfileActivity
             Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
             startActivity(intent);
         });
 
 
-        myBooking.setOnClickListener(v -> {
-            // Handle My Booking click
-            // Intent to My Booking activity
+        optionMyBooking.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, MyBookingActivity.class);
+            startActivity(intent);
         });
 
-        notification.setOnClickListener(v -> {
+        optionNotification.setOnClickListener(v -> {
             // Handle Notifications click
             // Intent to Notifications activity
         });
 
-        languages.setOnClickListener(v -> {
-            // Handle Languages click
-            // Intent to Languages activity
+       
+        optionSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, SettingActivity.class);
+            startActivity(intent);
         });
 
-        settings.setOnClickListener(v -> {
-            // Handle Settings click
-            // Intent to Settings activity
+        optionTermsConditions.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, TermsConditionsActivity.class);
+            startActivity(intent);
         });
 
-        termsConditions.setOnClickListener(v -> {
-            // Handle Terms and Conditions click
-            // Intent to Terms and Conditions activity
+        optionCustomerSupport.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, CustomerSupportActivity.class);
+            startActivity(intent);
         });
 
-        customerSupport.setOnClickListener(v -> {
-            // Handle Customer Support click
-            // Intent to Customer Support activity
+        optionRateUs.setOnClickListener(v -> {
+            // Show the rating dialog when clicked
+            RatingDialogFragment ratingDialogFragment = new RatingDialogFragment();
+            ratingDialogFragment.show(getSupportFragmentManager(), "RatingDialog");
         });
+        // Set up logout functionality
+        optionLogout.setOnClickListener(v -> showLogoutDialog());
 
-        rateUs.setOnClickListener(v -> {
-            // Handle Rate Us click
-            // Intent to Rate Us activity
+        optionFaq.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, FAQActivity.class);
+            startActivity(intent);
         });
-
         // Set up Bottom Navigation
         bottomNavView.setOnNavigationItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_search) {
+            if (item.getItemId() == R.id.nav_home) {
                 startActivity(new Intent(ProfileActivity.this, DashboardActivity.class));
-                return true;
-            } else if (item.getItemId() == R.id.nav_publish) {
-                startActivity(new Intent(ProfileActivity.this, PublishActivity.class));
-                return true;
-            } else if (item.getItemId() == R.id.nav_your_rides) {
-                startActivity(new Intent(ProfileActivity.this, YourRidesActivity.class));
-                return true;
-            } else if (item.getItemId() == R.id.nav_inbox) {
-                startActivity(new Intent(ProfileActivity.this, InboxActivity.class));
                 return true;
             } else if (item.getItemId() == R.id.nav_profile) {
                 return true;
             }
+            else if (item.getItemId() == R.id.nav_booking){
+                startActivity(new Intent(ProfileActivity.this, MyBookingActivity.class));
+                return true;
+            }
+            else if (item.getItemId() == R.id.nav_host_car){
+                startActivity(new Intent(ProfileActivity.this, HostCarActivity.class));
+                return true;
+            }
             return false;
 
-    });
+        });
+
+    }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_logout_confirmation, null);
+        builder.setView(dialogView);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        Button cancelButton = dialogView.findViewById(R.id.cancelButton);
+        Button logoutButton = dialogView.findViewById(R.id.logoutButton);
+
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+        logoutButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            // Perform logout logic (e.g., clear session or preferences)
+            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        });
 
     }
 }

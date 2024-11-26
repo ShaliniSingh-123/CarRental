@@ -1,156 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbkg"
-    tools:context=".SearchActivity">
+    android:padding="16dp">
 
-    <!-- Card View for Search Form -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical">
+
+<!-- PICK UP AT -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="PICK UP AT"
+    android:textSize="16sp"
+    android:textColor="#000000"
+    android:layout_marginBottom="8dp"/>
+
+<Spinner
+    android:id="@+id/pickupSpinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/spinner_background"
+    android:layout_marginBottom="16dp"/>
+
+<!-- DROP OFF AT -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="DROP OFF AT"
+    android:textSize="16sp"
+    android:textColor="#000000"
+    android:layout_marginBottom="8dp"/>
+
+<Spinner
+    android:id="@+id/dropoffSpinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/spinner_background"
+    android:layout_marginBottom="16dp"/>
+
+<!-- PICK UP ON -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="PICK UP ON"
+    android:textSize="16sp"
+    android:textColor="#000000"
+    android:layout_marginBottom="8dp"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp">
+
+    <DatePicker
+        android:id="@+id/pickupDatePicker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
-    app:cardCornerRadius="30dp"
-    app:cardElevation="20dp"
-    android:background="@drawable/custom_edittext">
+        android:datePickerMode="spinner"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TimePicker
+        android:id="@+id/pickupTimePicker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:timePickerMode="spinner"/>
+</LinearLayout>
 
-        <!-- Leaving From Field -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingVertical="8dp">
+<!-- DROP OFF ON -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="DROP OFF ON"
+    android:textSize="16sp"
+    android:textColor="#000000"
+    android:layout_marginBottom="8dp"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="#4A4A4A"
-                android:text="Leaving from"
-                android:textColor="#4A4A4A"
-                android:checked="true" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp">
 
-            <EditText
-                android:id="@+id/leaving_from"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:hint="Enter location"
-                android:backgroundTint="#CCCCCC"
-                android:inputType="text"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Going To Field -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingVertical="8dp">
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="#4A4A4A"
-                android:text="Going to"
-                android:textColor="#4A4A4A" />
-
-            <EditText
-                android:id="@+id/going_to"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:hint="Enter destination"
-                android:backgroundTint="#CCCCCC"
-                android:inputType="text"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Date Picker Field -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingVertical="8dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/baseline_calendar_month_24" />
-
-            <TextView
-                android:id="@+id/date_picker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:hint="Today"
-                android:textColor="#4A4A4A"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Passengers Field -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingVertical="8dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/baseline_person_24"
-                android:tint="#4A4A4A" />
-
-            <EditText
-                android:id="@+id/passenger_count"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:hint="1"
-                android:backgroundTint="#CCCCCC"
-                android:inputType="number"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Search Button -->
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            android:backgroundTint="#e9c13c"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:layout_marginTop="16dp" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
-
-
-    <!-- Bottom Navigation View -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavView"
-        android:layout_width="match_parent"
+    <DatePicker
+        android:id="@+id/dropoffDatePicker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled" />
+        android:datePickerMode="spinner"/>
 
+    <TimePicker
+        android:id="@+id/dropoffTimePicker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"/>
+</LinearLayout>
 
-</RelativeLayout>
+<!-- SEARCH BUTTON -->
+<Button
+    android:id="@+id/searchButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/green"
+    android:text="SEARCH"
+    android:textColor="#FFFFFF"
+    android:textStyle="bold"/>
+</LinearLayout>
+    </ScrollView>
