@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Make the POST request to the login API using RetrofitClient to get Retrofit instance
-        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        ApiService apiService = RetrofitClient.getRetrofitInstance(LoginActivity.this).create(ApiService.class);
         LoginRequest loginRequest = new LoginRequest(email, password);
 
         Call<LoginResponse> call = apiService.login(loginRequest);
@@ -70,12 +71,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     LoginResponse loginResponse = response.body();
-                    if ("Login successful".equals(loginResponse.getMessage())) {
-                        Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
-                        intent.putExtra("user_email", loginResponse.getUser().getEmail());
-                        intent.putExtra("user_fullName", loginResponse.getUser().getFullName());
+                    if (loginResponse.isSuccess()) {
+                        // Save tokens to SharedPreferences
+                        SharedPreferencesManager.saveTokens(LoginActivity.this, loginResponse.getData().getAccessToken(), loginResponse.getData().getRefreshToken());
 
+                        // Show success message
+                        Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+
+                        // Pass user data to the next activity
+                        Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                        intent.putExtra("user_email", loginResponse.getData().getUser().getEmail());
+                        intent.putExtra("user_fullName", loginResponse.getData().getUser().getFullName());
 
                         startActivity(intent);
                         finish();  // Close the login activity
@@ -96,4 +102,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

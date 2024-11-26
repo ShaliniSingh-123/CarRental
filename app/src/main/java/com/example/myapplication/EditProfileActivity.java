@@ -151,7 +151,7 @@ public class EditProfileActivity extends AppCompatActivity {
         File file = getImageFile();
         if (file == null) return;
 
-        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        ApiService apiService = RetrofitClient.getRetrofitInstance(EditProfileActivity.this).create(ApiService.class);
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
 
@@ -173,7 +173,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void updateProfile(String name, String email, String phone, String address) {
-        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        ApiService apiService = RetrofitClient.getRetrofitInstance(EditProfileActivity.this).create(ApiService.class);
 
         RequestBody nameRequestBody = RequestBody.create(MultipartBody.FORM, name);
         RequestBody emailRequestBody = RequestBody.create(MultipartBody.FORM, email);
@@ -237,8 +237,10 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void fetchUserProfile() {
-        String userId = "673ddbb366183c22033a9f4d"; // Replace with actual user ID
-        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+
+
+        String userId = "67443a51e088ba69d945c527"; // Replace with actual user ID
+        ApiService apiService = RetrofitClient.getRetrofitInstance(EditProfileActivity.this).create(ApiService.class);
         apiService.getUserProfile(userId).enqueue(new Callback<UserProfile>() {
             @Override
             public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {

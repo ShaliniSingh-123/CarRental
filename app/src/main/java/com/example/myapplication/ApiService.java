@@ -16,29 +16,34 @@ import retrofit2.http.Multipart;
 public interface ApiService {
 
     // Define the POST request for login
-    @POST("/login")  // The endpoint of the login API
-    Call<LoginResponse> login(@Body LoginRequest loginRequest); // Send LoginRequest and receive LoginResponse
+    @POST("/api/v1/users/login")  // The endpoint of the login API
+    Call<LoginResponse> login(@Body LoginRequest loginRequest); // Send LoginRequest and receive LoginResponse.java
 
     // Define the POST request for registration
-    @POST("/register")  // The endpoint of the register API
+    @POST("/api/v1/users/register")  // The endpoint of the register API
     Call<RegisterResponse> register(@Body RegisterRequest registerRequest); // Send RegisterRequest and receive RegisterResponse
 
 
-    @GET("/profile/{userId}")
+    @GET("/api/v1/users/profile/{userId}")
     Call<UserProfile> getUserProfile(@Path("userId") String userId);
 
     @Multipart
-    @POST("uploadImage") // Replace with your server's endpoint URL
+    @POST("/api/v1/users/uploadImage") // Replace with your server's endpoint URL
     Call<ImageResponse> uploadImage(@Part MultipartBody.Part file);
 
     @Multipart
-    @POST("/updateProfile/")
+    @POST("/api/v1/users/updateProfile/")
     Call<UserProfile> updateUserProfileWithImage(
             @Part("fullName") RequestBody name,
             @Part("email") RequestBody email,
             @Part("mobile") RequestBody phone,
             @Part("address") RequestBody address
     );
+
+        @POST("/logout")
+        Call<LogoutResponse> logoutUser();
+
+
 
 
 }

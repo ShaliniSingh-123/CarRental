@@ -75,7 +75,7 @@ public class SignupActivity extends AppCompatActivity {
                     RegisterRequest registerRequest = new RegisterRequest(fullName, email, mobile, password);
 
                     // Use RetrofitClient to get the Retrofit instance
-                    Retrofit retrofit = RetrofitClient.getRetrofitInstance();
+                    Retrofit retrofit = RetrofitClient.getRetrofitInstance(SignupActivity.this);
                     ApiService apiService = retrofit.create(ApiService.class);
 
                     // Make the API call using the register endpoint
