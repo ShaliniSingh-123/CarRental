@@ -1,0 +1,55 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- Row for Question and Dropdown Arrow -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Question Text -->
+        <TextView
+            android:id="@+id/questionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Question?"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <!-- Dropdown Arrow -->
+        <ImageView
+            android:id="@+id/dropdownArrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_arrow_drop_down_24"
+            android:contentDescription="Dropdown Arrow" />
+    </LinearLayout>
+
+    <!-- Answer Text -->
+    <TextView
+        android:id="@+id/answerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:padding="16dp"
+        android:textSize="14sp"
+        android:text="Answer goes here..."
+        android:background="#F0F0F0"
+        android:textColor="#000000" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#EEEEEE" />
+</LinearLayout>

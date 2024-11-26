@@ -44,57 +44,85 @@
                     android:textStyle="bold"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bangalore"
-                    android:textColor="@color/green"
-                    android:textSize="16sp"
-                    android:layout_marginTop="4dp" />
-
-                <!-- Search Location -->
+                <!-- PICK UP -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:gravity="center_vertical"
-                    android:background="@drawable/grey_border"
                     android:padding="8dp"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="5dp">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/baseline_search_24" />
-
-                    <EditText
-                        android:id="@+id/search_location"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:hint="Search for the location"
-                        android:backgroundTint="@android:color/transparent"
-                        android:inputType="text"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:text="PICK UP AT"
+                        android:textSize="14sp"
+                        android:textColor="@color/grey" />
+
+                    <Spinner
+                        android:id="@+id/pickupSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/spinner_background"
+                        android:popupBackground="@android:color/white"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:gravity="center_vertical" />
                 </LinearLayout>
 
-                <!-- Date and Time Fields -->
+                <!-- DROP OFF -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="DROP OFF AT"
+                        android:textSize="14sp"
+                        android:textColor="@color/grey"
+                        android:layout_marginBottom="8dp" />
+
+                    <Spinner
+                        android:id="@+id/dropoffSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/spinner_background"
+                        android:popupBackground="@android:color/white"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:gravity="center_vertical" />
+                </LinearLayout>
+
+                <!-- TRIP START -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PICK UP ON"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey"
+                    android:layout_marginTop="5dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="16dp"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    android:background="@drawable/spinner_background"
+                    android:padding="8dp"
+                    android:gravity="center_vertical">
 
+                    <!-- Select Date Section -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:orientation="horizontal"
-                        android:background="@drawable/grey_border"
-                        android:padding="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
                         android:gravity="center_vertical">
 
                         <ImageView
@@ -102,90 +130,127 @@
                             android:layout_height="24dp"
                             android:src="@drawable/baseline_calendar_month_24"
                             android:contentDescription="Calendar Icon"
-                            android:tint="@color/grey"
-                            android:layout_gravity="top"
-                            android:paddingBottom="4dp" />
+                            android:tint="@color/grey" />
 
-                        <!-- Trip Start Text -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                        <TextView
+                            android:id="@+id/trip_start_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
                             android:layout_marginStart="8dp"
-                            android:layout_weight="1">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Trip Start"
-                                android:textColor="@color/grey"
-                                android:textSize="14sp" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/trip_start_date"
-                                android:text="Nov 18, 2PM"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
-                                android:textSize="14sp"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
+                            android:text="Select Date"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
+                    <!-- Divider (Optional) -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/grey"
+                        android:layout_marginHorizontal="8dp" />
+
+                    <!-- Select Time Section -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:orientation="horizontal"
-                        android:background="@drawable/grey_border"
-                        android:padding="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
                         android:gravity="center_vertical">
 
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/baseline_calendar_month_24"
-                            android:contentDescription="Calendar Icon"
-                            android:tint="@color/grey"
-                            android:layout_gravity="top"
-                            android:paddingBottom="4dp" />
+                            android:src="@drawable/baseline_access_time_24"
+                            android:contentDescription="Time Icon"
+                            android:tint="@color/grey" />
 
-                        <!-- Trip End Text -->
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/trip_start_time"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:layout_marginStart="8dp"
-                            android:layout_weight="1">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Trip End"
-                                android:textColor="@color/grey"
-                                android:textSize="14sp" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/trip_end_date"
-                                android:text="Nov 16, 7PM"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
-                                android:textSize="14sp"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
+                            android:text="Select Time"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Delivery & Pickup Checkbox -->
-                <!--            <CheckBox-->
-                <!--                android:id="@+id/delivery_pickup_checkbox"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:text="Delivery Pick-up, from anywhere"-->
-                <!--                android:textColor="@color/grey"-->
-                <!--                android:layout_marginTop="16dp" />-->
 
+                <!-- TRIP END -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="DROP OFF ON"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey"
+                    android:layout_marginTop="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:background="@drawable/spinner_background"
+                    android:padding="8dp"
+                    android:gravity="center_vertical">
+
+                    <!-- Select Date Section -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/baseline_calendar_month_24"
+                            android:contentDescription="Calendar Icon"
+                            android:tint="@color/grey" />
+
+                        <TextView
+                            android:id="@+id/trip_end_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Select Date"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Divider (Optional) -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/grey"
+                        android:layout_marginHorizontal="8dp" />
+
+                    <!-- Select Time Section -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/baseline_access_time_24"
+                            android:contentDescription="Time Icon"
+                            android:tint="@color/grey" />
+
+                        <TextView
+                            android:id="@+id/trip_end_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Select Time"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
                 <!-- Search Button -->
                 <Button
                     android:id="@+id/search_car_button"
@@ -199,12 +264,13 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-    <!-- "Why AYA Rental?" Section -->
+
+        <!-- "Why AYA Rental?" Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="550dp"
         android:padding="16dp">
 
         <TextView
@@ -343,35 +409,13 @@
                     android:textAlignment="center"/>
             </LinearLayout>
         </LinearLayout>
-        <!-- Available Cars Section -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/rounded_rectangle"
-            android:padding="16dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Available Cars\nLong term and short term"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:src="@drawable/suv"/>
-        </LinearLayout>
         <!-- Bottom Section (Buttons for Low Cost and Normal Cost) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:gravity="center">
 
             <Button
@@ -461,76 +505,35 @@
                 android:orientation="vertical"
                 android:background="@color/white">
 
-                <!-- Header Section -->
-                <LinearLayout
+                <!-- ViewPager2 for Slider -->
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/ayaStoriesSlider"
                     android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_margin="16dp"
+                    android:clipToPadding="false"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:clipChildren="false" />
+
+
+                <!-- Optional Dots Indicator (Optional) -->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/sliderDots"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#808080"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_gravity="center"
+                    app:tabIndicatorColor="@color/green"
+                    app:tabSelectedTextColor="@color/red"
+                    app:tabIndicatorGravity="center" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hosted by KEERTHI KUMAR G R"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Renault Kwid [2019] 2020"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <!-- Image Section -->
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:contentDescription="Car Image"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/suv" />
-
-
-
-                <!-- Review Section -->
+                <!-- Customer Comments Section -->
                 <LinearLayout
+                    android:id="@+id/customerCommentsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ANURAG OJHA"
-                        android:textColor="#000"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="“I had an exceptional experience with Mr. Kumar's car! The vehicle was well-maintained, and comfortable. But what truly made the..."
-                        android:textColor="#555"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <!-- Action Button -->
-<!--                <Button-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:backgroundTint="#4CAF50"-->
-<!--                    android:padding="16dp"-->
-<!--                    android:text="Book this car"-->
-<!--                    android:textAllCaps="false"-->
-<!--                    android:textColor="@android:color/white"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textStyle="bold" />-->
+                    android:padding="16dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
@@ -547,5 +550,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled" />
+        app:labelVisibilityMode="labeled"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"/>
 </RelativeLayout>

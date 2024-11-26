@@ -20,7 +20,7 @@ public class RetrofitClient {
 
         // Create and return the Retrofit instance
         return new Retrofit.Builder()
-                .baseUrl("http://192.168.1.9:3000") // Base URL for the API
+                .baseUrl("http://192.168.1.8:3000") // Base URL for the API
                 .client(okHttpClient)               // Use the OkHttpClient with logging
                 .addConverterFactory(GsonConverterFactory.create()) // Convert JSON to Java objects using Gson
                 .build();
