@@ -27,9 +27,13 @@ public class DashboardActivity extends AppCompatActivity {
 
     private Button lowCostButton, normalCostButton, searchCarButton;
     private Spinner pickupSpinner, dropoffSpinner;
-    private TextView tripStartTextView, tripEndTextView;
+
+    private TextView tripStartDateTextView, tripStartTimeTextView, dropOffDateTextView, dropOffTimeTextView;
     private int year, month, day, hour, minute;
-    private String tripStartDate, tripEndDate;
+
+    // Flags to identify which TextView to update
+    private boolean isPickupDate = true;
+    private boolean isPickupTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +46,15 @@ public class DashboardActivity extends AppCompatActivity {
         searchCarButton = findViewById(R.id.search_car_button);
         pickupSpinner = findViewById(R.id.pickupSpinner);
         dropoffSpinner = findViewById(R.id.dropoffSpinner);
-        tripStartTextView = findViewById(R.id.trip_start_date);
-        tripEndTextView = findViewById(R.id.trip_end_date);
+        tripStartDateTextView = findViewById(R.id.trip_start_date);
+        tripStartTimeTextView = findViewById(R.id.trip_start_time);
+        dropOffDateTextView = findViewById(R.id.trip_end_date);
+        dropOffTimeTextView = findViewById(R.id.trip_end_time);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView);
         ViewPager2 viewPager2 = findViewById(R.id.ayaStoriesSlider);
         TabLayout tabLayout = findViewById(R.id.sliderDots);
         LinearLayout commentsContainer = findViewById(R.id.customerCommentsContainer);
+
 
         // Initialize Spinners with data
         String[] locations = {"CT – Cape Town Airport", "Cape Town - City", "Johannesburg - City"};
@@ -72,16 +79,33 @@ public class DashboardActivity extends AppCompatActivity {
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
 
-        // Set default trip start and end dates
-        tripStartDate = getFormattedDateTime(day, month, year, hour, minute);
-        tripEndDate = getFormattedDateTime(day + 1, month, year, hour + 1, minute);
+        // Set default date and time
+        tripStartDateTextView.setText(getFormattedDate(day, month, year));
+        tripStartTimeTextView.setText(getFormattedTime(hour, minute));
+        dropOffDateTextView.setText(getFormattedDate(day, month, year));
+        dropOffTimeTextView.setText(getFormattedTime(hour, minute));
 
-        tripStartTextView.setText(tripStartDate);
-        tripEndTextView.setText(tripEndDate);
+        // Set Click listeners for Date and Time TextViews
+        tripStartDateTextView.setOnClickListener(v -> {
+            isPickupDate = true;
+            showDatePickerDialog();
+        });
 
-        // Set Click listeners for date and time
-        tripStartTextView.setOnClickListener(v -> showDatePickerDialog(tripStartTextView));
-        tripEndTextView.setOnClickListener(v -> showDatePickerDialog(tripEndTextView));
+        dropOffDateTextView.setOnClickListener(v -> {
+            isPickupDate = false;
+            showDatePickerDialog();
+        });
+
+        tripStartTimeTextView.setOnClickListener(v -> {
+            isPickupTime = true;
+            showTimePickerDialog();
+        });
+
+        dropOffTimeTextView.setOnClickListener(v -> {
+            isPickupTime = false;
+            showTimePickerDialog();
+        });
+
 
 
         // Button listeners
@@ -134,38 +158,41 @@ public class DashboardActivity extends AppCompatActivity {
         return comments;
     }
 
-    // Show DatePickerDialog and TimePickerDialog
-    // Method to show Date Picker Dialog
-    private void showDatePickerDialog(TextView dateTextView) {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
+    // Show DatePickerDialog
+    private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year1, month1, dayOfMonth) -> {
-            // After selecting date, show time picker
-            showTimePickerDialog((view1, hourOfDay, minute) -> {
-                String selectedDate = getFormattedDateTime(dayOfMonth, month1, year1, hourOfDay, minute);
-                dateTextView.setText(selectedDate);
-            });
+            // Update the selected date
+            year = year1;
+            month = month1;
+            day = dayOfMonth;
+
+            // Update the correct TextView
+            if (isPickupDate) {
+                tripStartDateTextView.setText(getFormattedDate(day, month, year));
+            } else {
+                dropOffDateTextView.setText(getFormattedDate(day, month, year));
+            }
         }, year, month, day);
         datePickerDialog.show();
     }
 
+    // Show TimePickerDialog
+    private void showTimePickerDialog() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute1) -> {
+            // Update the selected time
+            hour = hourOfDay;
+            minute = minute1;
 
-    // Method to show Time Picker Dialog
-    private void showTimePickerDialog(TimePickerDialog.OnTimeSetListener listener) {
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, listener, hour, minute, false);
+            // Update the correct TextView
+            if (isPickupTime) {
+                tripStartTimeTextView.setText(getFormattedTime(hour, minute));
+            } else {
+                dropOffTimeTextView.setText(getFormattedTime(hour, minute));
+            }
+        }, hour, minute, false);
         timePickerDialog.show();
     }
-
     // Format date and time
-    private String getFormattedDateTime(int day, int month, int year, int hour, int minute) {
-        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-        String amPm = (hour < 12) ? "AM" : "PM";
-        int hour12 = (hour % 12 == 0) ? 12 : (hour % 12);
-        return String.format("%s %d, %d %d:%02d %s", months[month], day, year, hour12, minute, amPm);
-    }
 
     // Perform search
     private void performSearch() {
@@ -173,16 +200,27 @@ public class DashboardActivity extends AppCompatActivity {
         String dropoffSpinnerValue = dropoffSpinner.getSelectedItem().toString();
 
         String searchDetails = "Searching for cars at " + pickupSpinnerValue +
-                "\nTrip Start: " + tripStartDate +
-                "\nTrip End: " + tripEndDate;
+                "\nTrip Start: " + tripStartDateTextView.getText() + " " + tripStartTimeTextView.getText() +
+                "\nTrip End: " + dropOffDateTextView.getText() + " " + dropOffTimeTextView.getText();
         Toast.makeText(this, searchDetails, Toast.LENGTH_LONG).show();
     }
 
+    // Format date in "Month Day, Year" format
+    private String getFormattedDate(int day, int month, int year) {
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        return String.format("%s %d, %d", months[month], day, year);
+    }
+
+    // Format time in "Hour:Minute AM/PM" format
+    private String getFormattedTime(int hour, int minute) {
+        String amPm = (hour < 12) ? "AM" : "PM";
+        int hour12 = (hour % 12 == 0) ? 12 : (hour % 12);
+        return String.format("%02d:%02d %s", hour12, minute, amPm);
+    }
+
     // Open Car Selection Activity
-    private void openCarSelection(String costType) {
-        Intent intent = new Intent(this, CategorySelectionActivity.class);
-        intent.putExtra("COST_TYPE", costType);
-        startActivity(intent);
+    private void openCarSelection(String type) {
+        Toast.makeText(this, "Car selection for: " + type, Toast.LENGTH_SHORT).show();
     }
 
     // Handle bottom navigation

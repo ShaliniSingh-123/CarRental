@@ -1,51 +1,32 @@
 <resources>
     <string name="app_name">My Application</string>
-    <!-- Parent Theme for the Activity -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@color/background_color</item>
-    </style>
+    <!-- Define the categories array -->
+    <string-array name="category_array">
+        <item>SUV</item>
+        <item>Sedan</item>
+        <item>Hatchback</item>
+        <item>Convertible</item>
+    </string-array>
 
-    <!-- Style for the labels (TextView) -->
-    <style name="LabelTextStyle">
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-    </style>
+    <!-- Define the seating capacity array -->
+    <string-array name="seating_capacity_array">
+        <item>2</item>
+        <item>4</item>
+        <item>5</item>
+        <item>7</item>
+    </string-array>
 
-    <!-- Style for the input fields (EditText) -->
-    <style name="InputFieldStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">@color/input_border</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textColorHint">@color/input_border</item>
-        <item name="android:layout_marginBottom">16dp</item>
-    </style>
+    <!-- Define the fuel type array -->
+    <string-array name="fuel_type_array">
+        <item>Petrol</item>
+        <item>Diesel</item>
+        <item>Electric</item>
+        <item>Hybrid</item>
+    </string-array>
 
-    <!-- Style for the Next and Submit buttons -->
-    <style name="ButtonStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">@color/button_background</item>
-        <item name="android:textColor">@color/button_text</item>
-        <item name="android:paddingVertical">8dp</item>
-        <item name="android:paddingHorizontal">24dp</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:layout_gravity">end</item>
-    </style>
-
-    <!-- Disabled Button Style -->
-    <style name="DisabledButtonStyle" parent="ButtonStyle">
-        <item name="android:backgroundTint">@color/disabled_button
-        </item> <!-- Corrected reference -->
-    </style>
-
-    <!-- Address options array for Spinner -->
-    <string-array name="address_options">
-        <item>Miss</item>
-        <item>Madam</item>
-        <item>Sir</item>
-        <item>I’d rather not say</item>
+    <!-- Define the transmission type array -->
+    <string-array name="transmission_type_array">
+        <item>Automatic</item>
+        <item>Manual</item>
     </string-array>
 </resources>

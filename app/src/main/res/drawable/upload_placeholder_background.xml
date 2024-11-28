@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#F2F2F2" /> <!-- Background color for placeholder -->
+    <corners android:radius="8dp" />  <!-- Rounded corners -->
+    <stroke
+        android:color="#BDBDBD"
+    android:width="2dp" />
+</shape>
