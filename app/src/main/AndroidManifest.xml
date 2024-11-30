@@ -17,6 +17,12 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".PartnerSignupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SignupDashboardActivity"
+            android:exported="true" />
+        <activity
             android:name=".DriverSignupActivity"
             android:exported="true" />
         <activity

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F9F9F9">
+    android:background="#F3F9F7">
 
     <!-- Header -->
     <LinearLayout
@@ -13,22 +13,25 @@
         android:padding="16dp"
         android:orientation="horizontal"
         android:background="#FFFFFF"
-        android:elevation="4dp">
+        android:elevation="6dp"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Home"
-            android:textSize="20sp"
-            android:textColor="#000" />
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_circle_notifications_24"
             android:background="@null"
-            android:contentDescription="Search" />
+            android:contentDescription="Notifications"
+            android:tint="#2C6B2F" />
     </LinearLayout>
 
     <!-- Tabs -->
@@ -36,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#F2F2F2">
+        android:layout_marginTop="30dp"
+        android:padding="16dp">
 
         <Button
             android:id="@+id/tab_earning"
@@ -44,17 +48,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Earning"
-            android:background="@drawable/tab_active"
-            android:textColor="#FFFFFF" />
+            android:backgroundTint="#1E824C"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium" />
 
         <Button
             android:id="@+id/tab_my_cars"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="8dp"
             android:text="My Cars"
-            android:background="@drawable/tab_inactive"
-            android:textColor="#6A3EBC" />
+            android:backgroundTint="#1E824C"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"/>
     </LinearLayout>
 
     <!-- Content -->
@@ -69,13 +76,14 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Total Earning Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp"
-                android:background="#FFFFFF"
-                android:elevation="2dp"
+                android:background="@drawable/rounded_background"
+                android:elevation="4dp"
                 android:layout_marginBottom="16dp">
 
                 <TextView
@@ -83,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:text="Total Earning"
                     android:textSize="16sp"
-                    android:textColor="#555555" />
+                    android:textColor="#2C6B2F" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -95,26 +103,43 @@
                     android:textColor="#000000" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_payout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Payout"
-                android:background="#000000"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="16dp"
-                android:padding="12dp" />
+            <!-- Payout Button -->
+<!--            <Button-->
+<!--                android:id="@+id/btn_payout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Payout"-->
+<!--                android:backgroundTint="#1E824C"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                android:padding="12dp" />-->
 
-            <Button
+            <!-- Add Your Car Button with Plus Icon -->
+            <LinearLayout
                 android:id="@+id/btn_add_car"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Your Car"
-                android:backgroundTint="@color/white"
-                android:textColor="#6A3EBC"
-                android:drawableStart="@drawable/baseline_add_24"
-                android:gravity="center_vertical"
-                android:padding="12dp" />
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="@drawable/rounded_background"
+                android:elevation="4dp"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/outline_add_box_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Your Car"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -132,18 +157,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@null"
-            android:text="Booking"
-            android:textColor="#888888" />
+            android:backgroundTint="#FFFFFF"
+            android:textColor="@color/green"
+            android:fontFamily="sans-serif-medium"
+            android:text="Booking"/>
 
         <Button
             android:id="@+id/btn_home"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@null"
+            android:backgroundTint="#FFFFFF"
+            android:textColor="@color/green"
+            android:fontFamily="sans-serif-medium"
             android:text="Home"
-            android:textColor="#6A3EBC"
             android:textStyle="bold" />
 
         <Button
@@ -151,8 +178,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@null"
-            android:text="Setting"
-            android:textColor="#888888" />
+            android:backgroundTint="#FFFFFF"
+            android:textColor="@color/green"
+            android:fontFamily="sans-serif-medium"
+            android:text="Setting" />
     </LinearLayout>
 </LinearLayout>

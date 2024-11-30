@@ -15,8 +15,8 @@
         <!-- Back Icon -->
         <ImageView
             android:id="@+id/backArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/baseline_arrow_back_24"
             android:layout_marginBottom="16dp" />
 
@@ -36,6 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full Name"
+            app:boxStrokeColor="@color/green"
+            app:hintTextColor="@color/green"
             android:layout_marginBottom="16dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/fullNameEditText"
@@ -49,6 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            app:boxStrokeColor="@color/green"
+            app:hintTextColor="@color/green"
             android:layout_marginBottom="16dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailEditText"
@@ -62,6 +66,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mobile Number"
+            app:boxStrokeColor="@color/green"
+            app:hintTextColor="@color/green"
             android:layout_marginBottom="16dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/mobileEditText"
@@ -75,6 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            app:boxStrokeColor="@color/green"
+            app:hintTextColor="@color/green"
             android:layout_marginBottom="16dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordEditText"
@@ -88,6 +96,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="License Number"
+            app:boxStrokeColor="@color/green"
+            app:hintTextColor="@color/green"
             android:layout_marginBottom="16dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/licenseNumberEditText"
@@ -101,6 +111,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="License Expiry Date"
+            app:boxStrokeColor="@color/green"
+            app:hintTextColor="@color/green"
             android:layout_marginBottom="16dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/licenseExpiryDateEditText"

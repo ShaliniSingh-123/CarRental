@@ -1,15 +1,17 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PartnerDashboardActivity extends AppCompatActivity {
 
-    private Button tabEarning, tabMyCars, btnPayout, btnAddCar;
+    private Button tabEarning, tabMyCars, btnPayout, btnBooking, btnHome, btnSetting;
+    private LinearLayout btnAddCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +21,10 @@ public class PartnerDashboardActivity extends AppCompatActivity {
         // Initialize views
         tabEarning = findViewById(R.id.tab_earning);
         tabMyCars = findViewById(R.id.tab_my_cars);
-        btnPayout = findViewById(R.id.btn_payout);
         btnAddCar = findViewById(R.id.btn_add_car);
+        btnBooking = findViewById(R.id.btn_booking);
+        btnHome = findViewById(R.id.btn_home);
+        btnSetting = findViewById(R.id.btn_setting);
 
         // Tab click listeners
         tabEarning.setOnClickListener(v -> {
@@ -36,10 +40,19 @@ public class PartnerDashboardActivity extends AppCompatActivity {
         });
 
         // Button click listeners
-        btnPayout.setOnClickListener(v ->
-                Toast.makeText(this, "Payout Clicked", Toast.LENGTH_SHORT).show());
 
-        btnAddCar.setOnClickListener(v ->
-                Toast.makeText(this, "Add Your Car Clicked", Toast.LENGTH_SHORT).show());
+        btnAddCar.setOnClickListener(v -> {
+            Intent intent = new Intent(PartnerDashboardActivity.this, AddCarActivity.class);
+            startActivity(intent);
+        });
+
+        btnBooking.setOnClickListener(v ->
+                Toast.makeText(this, "Booking Button Clicked", Toast.LENGTH_SHORT).show());
+
+        btnHome.setOnClickListener(v ->
+                Toast.makeText(this, "Home Button Clicked", Toast.LENGTH_SHORT).show());
+
+        btnSetting.setOnClickListener(v ->
+                Toast.makeText(this, "Settings Button Clicked", Toast.LENGTH_SHORT).show());
     }
 }

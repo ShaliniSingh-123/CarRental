@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:text="Partner Registration"
             android:textSize="20sp"
             android:textColor="#000"
             android:textStyle="bold"
@@ -42,17 +42,17 @@
             app:boxBackgroundMode="outline"
             app:hintTextColor="@color/green">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/fullNameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/baseline_person_24"
-            android:padding="12dp"
-            android:drawablePadding="8dp"
-            android:inputType="textPersonName" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fullNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:padding="12dp"
+                android:drawablePadding="8dp"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Email Input -->
+        <!-- Email Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,6 +93,28 @@
                 android:drawableLeft="@drawable/baseline_contact_phone_24"
                 android:drawablePadding="8dp"
                 android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Address Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:layout_marginTop="8dp"
+            app:boxStrokeColor="@color/green"
+            app:boxStrokeWidth="2dp"
+            app:boxBackgroundMode="outline"
+            app:hintTextColor="@color/green">>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addressEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:drawableLeft="@drawable/location"
+                android:drawablePadding="8dp"
+                android:inputType="textPostalAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Password Input -->
@@ -161,5 +183,5 @@
             android:textColor="#FFFFFF"
             android:backgroundTint="@color/green"
             android:layout_marginTop="16dp" />
-        </LinearLayout>
+    </LinearLayout>
 </ScrollView>

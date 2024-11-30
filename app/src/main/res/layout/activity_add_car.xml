@@ -1,89 +1,128 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/stepIndicator"
-            android:layout_width="wrap_content"
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Basic Information"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_gravity="center"
-            android:paddingBottom="16dp" />
+            android:padding="16dp"
+            android:orientation="horizontal"
+            android:background="#FFFFFF"
+            android:elevation="6dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp" >
+
+            <TextView
+                android:id="@+id/stepIndicator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add Basic Information"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="20sp" />
+        </LinearLayout>
+
 
         <!-- Step 1: General Information -->
         <LinearLayout
             android:id="@+id/step1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginTop="12dp">
 
             <!-- Car Name -->
-            <EditText
-                android:id="@+id/etCarName"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Car Name (e.g., Toyota Corolla)"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                android:hint="Car Name"
+                app:boxStrokeColor="@color/green"
+                app:hintTextColor="@color/green"
+                android:layout_marginBottom="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etCarName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Car Model -->
-            <EditText
-                android:id="@+id/etCarModel"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Car Model (e.g., 2022)"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                android:hint="Car Model"
+                app:boxStrokeColor="@color/green"
+                app:hintTextColor="@color/green"
+                android:layout_marginBottom="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etCarModel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Registration Number -->
-            <EditText
-                android:id="@+id/etRegistrationNumber"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Registration Number (e.g., ABC1234)"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                android:hint="Registration Number"
+                app:boxStrokeColor="@color/green"
+                app:hintTextColor="@color/green"
+                android:layout_marginBottom="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRegistrationNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Category -->
-            <Spinner
-                android:id="@+id/spinnerCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+            <!-- Spinner with Proper Border -->
+                <Spinner
+                    android:id="@+id/spinnerCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_edittext_background"
+                    android:padding="12dp" />
 
             <!-- Subcategory -->
-            <EditText
-                android:id="@+id/etSubcategory"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Subcategory (e.g., Economy, Luxury)"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                android:hint="Subcategory "
+                app:boxStrokeColor="@color/green"
+                app:hintTextColor="@color/green"
+                android:layout_marginBottom="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSubcategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Seating Capacity -->
-            <Spinner
-                android:id="@+id/spinnerSeatingCapacity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                <Spinner
+                    android:id="@+id/spinnerSeatingCapacity"
+                    android:background="@drawable/rounded_edittext_background"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+
+
 
             <!-- Fuel Type -->
             <Spinner
@@ -258,7 +297,8 @@
                 android:id="@+id/nextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/green"
                 android:text="Next" />
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
