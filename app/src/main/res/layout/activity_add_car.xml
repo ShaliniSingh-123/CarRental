@@ -90,12 +90,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Spinner with Proper Border -->
-                <Spinner
-                    android:id="@+id/spinnerCategory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_edittext_background"
-                    android:padding="12dp" />
+            <Spinner
+                android:id="@+id/spinnerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext_background"
+                android:padding="12dp" />
 
             <!-- Subcategory -->
             <com.google.android.material.textfield.TextInputLayout
@@ -113,16 +113,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Seating Capacity -->
-                <Spinner
-                    android:id="@+id/spinnerSeatingCapacity"
-                    android:background="@drawable/rounded_edittext_background"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
-
-
+            <Spinner
+                android:id="@+id/spinnerSeatingCapacity"
+                android:background="@drawable/rounded_edittext_background"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
 
             <!-- Fuel Type -->
             <Spinner
@@ -143,45 +141,9 @@
                 android:layout_marginBottom="12dp" />
         </LinearLayout>
 
-        <!-- Step 2: Rental Details -->
+        <!-- Step 2: Features -->
         <LinearLayout
             android:id="@+id/step2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <EditText
-                android:id="@+id/dailyRentalPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Daily Rental Price"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
-
-            <EditText
-                android:id="@+id/weeklyRentalPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:hint="Weekly Rental Price (Optional)"
-                android:layout_marginBottom="12dp" />
-
-            <EditText
-                android:id="@+id/monthlyRentalPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Monthly Rental Price (Optional)"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
-        </LinearLayout>
-
-        <!-- Step 3: Features -->
-        <LinearLayout
-            android:id="@+id/step3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -224,9 +186,9 @@
                 android:inputType="textMultiLine" />
         </LinearLayout>
 
-        <!-- Step 4: Location -->
+        <!-- Step 3: Location -->
         <LinearLayout
-            android:id="@+id/step4"
+            android:id="@+id/step3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -251,25 +213,106 @@
                 android:layout_marginBottom="12dp" />
         </LinearLayout>
 
-        <!-- Step 5: Image and Documentation -->
+        <!-- Step 4: Image and Documentation -->
+        <LinearLayout
+            android:id="@+id/step4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload Your Car Pictures"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="16dp" />
+
+            <!-- GridLayout for 4 images -->
+            <GridLayout
+                android:id="@+id/gridLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:orientation="horizontal"
+                android:rowCount="2"
+                android:paddingBottom="16dp"
+                android:layout_gravity="center">
+
+                <!-- Image Views for uploaded car pictures -->
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/image_border_radius"
+                    android:src="@drawable/image1"
+                    android:clipToOutline="true" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/image_border_radius"
+                    android:src="@drawable/image2"
+                    android:clipToOutline="true" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/image_border_radius"
+                    android:src="@drawable/image3"
+                    android:clipToOutline="true" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/image_border_radius"
+                    android:src="@drawable/image4"
+                    android:clipToOutline="true"  />
+                <Button
+                    android:id="@+id/uploadImagesButton"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_height="100dp"
+                    android:text="+"
+                    android:textSize="45sp"
+                    android:textColor="#000000"
+                    android:background="@drawable/dashed_border"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:padding="16dp"
+                    android:layout_marginBottom="16dp" />
+
+            </GridLayout>
+
+
+
+        </LinearLayout>
+
+        <!-- Step 5:Documentation -->
         <LinearLayout
             android:id="@+id/step5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Upload Car Images"
-                android:layout_marginBottom="12dp" />
-
-            <Button
-                android:id="@+id/uploadImagesButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Upload Images" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -284,7 +327,6 @@
                 android:layout_height="wrap_content"
                 android:text="Upload Document" />
         </LinearLayout>
-
         <!-- Navigation Buttons -->
         <LinearLayout
             android:layout_width="match_parent"

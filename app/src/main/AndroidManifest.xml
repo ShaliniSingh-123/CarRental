@@ -17,104 +17,82 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".PartnerSignupActivity"
+            android:name=".activity.PartnerSignupActivity"
             android:exported="true" />
         <activity
-            android:name=".SignupDashboardActivity"
+            android:name=".activity.SignupDashboardActivity"
             android:exported="true" />
         <activity
-            android:name=".DriverSignupActivity"
+            android:name=".activity.DriverSignupActivity"
             android:exported="true" />
         <activity
-            android:name=".AddCarActivity"
+            android:name=".activity.AddCarActivity"
             android:exported="true" />
         <activity
-            android:name=".PartnerDashboardActivity"
+            android:name=".activity.PartnerDashboardActivity"
             android:exported="true" />
         <activity
-            android:name=".HostCarActivity"
+            android:name=".activity.HostCarActivity"
             android:exported="true" />
         <activity
-            android:name=".BookingSuccessActivity"
+            android:name=".activity.BookingSuccessActivity"
             android:exported="true" />
         <activity
-            android:name=".FAQActivity"
+            android:name=".activity.FAQActivity"
             android:exported="false" />
         <activity
-            android:name=".MyBookingActivity"
+            android:name=".activity.MyBookingActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingActivity"
+            android:name=".activity.SettingActivity"
             android:exported="false" />
         <activity
-            android:name=".TermsConditionsActivity"
+            android:name=".activity.TermsConditionsActivity"
             android:exported="false" />
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".activity.EditProfileActivity"
             android:exported="true" />
         <activity
-            android:name=".CustomerSupportActivity"
+            android:name=".activity.CustomerSupportActivity"
             android:exported="true" />
         <activity
-            android:name=".ConfirmationActivity"
+            android:name=".activity.ConfirmationActivity"
             android:exported="true" />
         <activity
-            android:name=".DrivingLicenseActivity"
+            android:name=".activity.DrivingLicenseActivity"
             android:exported="true" />
         <activity
-            android:name=".IdentificationActivity"
+            android:name=".activity.IdentificationActivity"
             android:exported="true" />
         <activity
-            android:name=".PersonalInfoActivity"
+            android:name=".activity.PersonalInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".BookingInformationActivity"
+            android:name=".activity.BookingInformationActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".activity.CategorySelectionActivity"
             android:exported="true" />
         <activity
-            android:name=".ImageSliderAdapter"
+            android:name=".activity.CarDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.SubCategorySelectionActivity"
             android:exported="false" />
         <activity
-            android:name=".CategorySelectionActivity"
+            android:name=".activity.DashboardActivity"
             android:exported="true" />
+
         <activity
-            android:name=".CarDetailsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".SubCategorySelectionActivity"
+            android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".DashboardActivity"
+            android:name=".activity.ProfileActivity"
             android:exported="true" />
+
         <activity
-            android:name=".EditTravelPreferencesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddMiniBioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VerifyMyIdActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UploadProfilePictureActivity"
-            android:exported="true" />
-        <activity
-            android:name=".TravelPreferencesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="true" />
-        <activity
-            android:name=".InboxActivity"
-            android:exported="true" />
-        <activity android:name=".YourRidesActivity" />
-        <activity
-            android:name=".PublishActivity"
-            android:exported="false" /> <!-- Set InterfaceActivity as the launcher activity -->
-        <activity
-            android:name=".InterfaceActivity"
+            android:name=".activity.InterfaceActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -123,25 +101,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activity.RegisterActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".ManageUsersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CustomerDashboardActivity"
-            android:exported="true" />
-        <activity
-            android:name=".DriverDashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminDashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".SignupActivity"
+            android:name=".activity.SignupActivity"
             android:exported="true" />
     </application>
 
