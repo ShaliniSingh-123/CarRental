@@ -7,8 +7,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
-import com.example.myapplication.dialog.EarningFragment;
-import com.example.myapplication.dialog.MyCarsFragment;
+import com.example.myapplication.dialog.*;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class PartnerDashboardActivity extends AppCompatActivity {
