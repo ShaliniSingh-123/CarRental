@@ -49,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         termsPrivacyText.setText(spannable);
 
+        // Redirect to LoginActivity
         TextView loginRedirectText = findViewById(R.id.loginRedirectText);
         loginRedirectText.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -56,9 +57,27 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         });
 
+        // Get role from intent
+        String role = getIntent().getStringExtra("role");
+
+        // Handle role-based redirection
         LinearLayout signupRedirectText = findViewById(R.id.signupRedirectText);
         signupRedirectText.setOnClickListener(v -> {
-            Intent intent = new Intent(RegisterActivity.this, SignupActivity.class);
+            Intent intent;
+            switch (role != null ? role.toLowerCase() : "") {
+                case "customer":
+                    intent = new Intent(RegisterActivity.this, SignupActivity.class);
+                    break;
+                case "driver":
+                    intent = new Intent(RegisterActivity.this, DriverSignupActivity.class);
+                    break;
+                case "partner":
+                    intent = new Intent(RegisterActivity.this, PartnerSignupActivity.class);
+                    break;
+                default:
+                    intent = new Intent(RegisterActivity.this, SignupActivity.class);
+                    break;
+            }
             startActivity(intent);
         });
 
@@ -74,5 +93,3 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 }
-
-

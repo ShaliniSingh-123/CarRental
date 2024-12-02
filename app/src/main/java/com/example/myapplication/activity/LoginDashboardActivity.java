@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 
-public class SignupDashboardActivity extends AppCompatActivity {
+public class LoginDashboardActivity extends AppCompatActivity {
 
     // Declare the CardViews
     private CardView customerCard, partnerCard, driverCard;
@@ -53,13 +53,13 @@ public class SignupDashboardActivity extends AppCompatActivity {
         // Decide which activity to open based on the role
         switch (role) {
             case "Customer":
-                intent = new Intent(SignupDashboardActivity.this, RegisterActivity.class);
+                intent = new Intent(LoginDashboardActivity.this, SignupDashboardActivity.class);
                 break;
             case "Partner":
-                intent = new Intent(SignupDashboardActivity.this, RegisterActivity.class);
+                intent = new Intent(LoginDashboardActivity.this, PartnerDashboardActivity.class);
                 break;
             case "Driver":
-                intent = new Intent(SignupDashboardActivity.this, RegisterActivity.class);
+                intent = new Intent(LoginDashboardActivity.this, DriverSignupActivity.class);
                 break;
             default:
                 // Fallback in case of invalid role (Optional)

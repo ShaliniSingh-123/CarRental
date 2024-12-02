@@ -240,10 +240,7 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(new Intent(DashboardActivity.this, MyBookingActivity.class));
             return true;
         }
-        else if (item.getItemId() == R.id.nav_host_car){
-            startActivity(new Intent(DashboardActivity.this, HostCarActivity.class));
-            return true;
-        }
+
         return false;
     }
 

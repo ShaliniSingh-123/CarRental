@@ -127,10 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, MyBookingActivity.class));
                 return true;
             }
-            else if (item.getItemId() == R.id.nav_host_car){
-                startActivity(new Intent(ProfileActivity.this, HostCarActivity.class));
-                return true;
-            }
+
             return false;
 
         });

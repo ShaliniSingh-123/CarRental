@@ -62,10 +62,7 @@ public class MyBookingActivity extends AppCompatActivity {
             startActivity(new Intent(MyBookingActivity.this, MyBookingActivity.class));
             return true;
         }
-        else if (item.getItemId() == R.id.nav_host_car){
-            startActivity(new Intent(MyBookingActivity.this, HostCarActivity.class));
-            return true;
-        }
+
         return false;
     }
 }

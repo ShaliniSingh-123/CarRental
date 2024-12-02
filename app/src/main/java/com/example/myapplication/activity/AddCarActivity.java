@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.provider.MediaStore;
+import android.content.Intent;
 import android.widget.GridLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +25,7 @@ public class AddCarActivity extends AppCompatActivity {
     private ImageView imageView1, imageView2, imageView3, imageView4;
 
     // Step 2 Fields (Pricing)
-    private EditText dailyRentalPrice, weeklyRentalPrice, monthlyRentalPrice;
+    private EditText dailyRentalPrice;
 
     // Step 3 Fields (Features)
     private CheckBox airConditioning, gps, bluetooth, childSeat;
@@ -39,6 +39,7 @@ public class AddCarActivity extends AppCompatActivity {
 
     // Navigation Buttons
     private Button nextButton;
+    private ImageView backArrow;
 
     // Step Views
     private View step1, step2, step3, step4, step5;
@@ -61,34 +62,69 @@ public class AddCarActivity extends AppCompatActivity {
             switch (currentStep) {
                 case 1:
                     if (validateStep1()) {
-                        transitionToStep(step1, step2, "Step 2 of 5: Pricing");
+                        transitionToStep(step1, step2, "Features");
                         currentStep++;
                     }
                     break;
                 case 2:
                     if (validateStep2()) {
-                        transitionToStep(step2, step3, "Step 3 of 5: Features");
+                        transitionToStep(step2, step3, "Location");
                         currentStep++;
                     }
                     break;
                 case 3:
                     if (validateStep3()) {
-                        transitionToStep(step3, step4, "Step 4 of 5: Location");
+                        transitionToStep(step3, step4, "Upload Your Car Pictures");
                         currentStep++;
                     }
                     break;
                 case 4:
                     if (validateStep4()) {
-                        transitionToStep(step4, step5, "Step 5 of 5: Image Upload");
+                        transitionToStep(step4, step5, "Upload Documents");
                         nextButton.setText("Submit");
                         currentStep++;
                     }
                     break;
                 case 5:
                     submitForm();
+                    // Get the ViewPager from PartnerDashboardActivity and switch to the "My Cars" tab
+                    Intent intent = new Intent(AddCarActivity.this, PartnerDashboardActivity.class);
+                    intent.putExtra("tab", "MyCars"); // Pass a flag to indicate to the dashboard activity to switch to the "My Cars" tab
+                    startActivity(intent);
+                    finish();  // Optionally, you can use finish() to close the current activity
                     break;
             }
         });
+
+        // Handle "Back" Button Click
+        backArrow.setOnClickListener(v -> {
+            if (currentStep > 1) {
+                switch (currentStep) {
+                    case 2:
+                        transitionToStep(step2, step1, "Add Basic Information");
+                        currentStep--;
+                        break;
+                    case 3:
+                        transitionToStep(step3, step2, "Features");
+                        currentStep--;
+                        break;
+                    case 4:
+                        transitionToStep(step4, step3, "Location");
+                        currentStep--;
+                        break;
+                    case 5:
+                        transitionToStep(step5, step4, "Upload Your Car Pictures");
+                        currentStep--;
+                        break;
+                }
+            } else {
+                // When the current step is 1, navigate to PartnerDashboard activity
+                Intent intent = new Intent(AddCarActivity.this, PartnerDashboardActivity.class);
+                startActivity(intent);
+                finish();  // Optional: Finish the current activity so that the user can't navigate back to it
+            }
+        });
+
     }
 
     // Initialize Views for all steps and buttons
@@ -112,6 +148,7 @@ public class AddCarActivity extends AppCompatActivity {
 
         stepIndicator = findViewById(R.id.stepIndicator);
         nextButton = findViewById(R.id.nextButton);
+        backArrow = findViewById(R.id.backArrow); // Initialize the back arrow button
 
         // Step 1 Fields
         etCarName = findViewById(R.id.etCarName);
@@ -126,8 +163,6 @@ public class AddCarActivity extends AppCompatActivity {
 
         // Step 2 Fields (Pricing)
 //        dailyRentalPrice = findViewById(R.id.dailyRentalPrice);
-//        weeklyRentalPrice = findViewById(R.id.weeklyRentalPrice);
-//        monthlyRentalPrice = findViewById(R.id.monthlyRentalPrice);
 
         // Step 3 Fields (Features)
         airConditioning = findViewById(R.id.airConditioning);
@@ -142,7 +177,6 @@ public class AddCarActivity extends AppCompatActivity {
 
         // Step 5 Fields (Image Uploads)
         uploadImagesButton = findViewById(R.id.uploadImagesButton);
-        uploadDocumentButton = findViewById(R.id.uploadDocumentButton);
     }
 
     // Transition between steps with indicator update
@@ -183,29 +217,24 @@ public class AddCarActivity extends AppCompatActivity {
 
     // Additional validations for other steps
     private boolean validateStep2() {
-        // Validate pricing fields, ensure they are filled or valid
         return true;
     }
 
     private boolean validateStep3() {
-        // Validate features section
         return true;
     }
 
     private boolean validateStep4() {
-        // Validate location details
         return true;
     }
 
     // Image picker logic (stub)
     private void openImagePicker(int imageIndex) {
-        // Open image picker or file selector (stub)
         Toast.makeText(this, "Select Image for ImageView " + imageIndex, Toast.LENGTH_SHORT).show();
     }
 
     // Submit form logic (final step)
     private void submitForm() {
-        // Collect all data and submit to server or database
         Toast.makeText(this, "Form Submitted", Toast.LENGTH_SHORT).show();
     }
 }

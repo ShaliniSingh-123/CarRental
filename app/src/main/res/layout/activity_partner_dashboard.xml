@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".activity.PartnerDashboardActivity">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -30,157 +38,58 @@
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_circle_notifications_24"
             android:background="@null"
-            android:contentDescription="Notifications"
-            android:tint="#2C6B2F" />
+            android:contentDescription="Notifications" />
     </LinearLayout>
 
     <!-- Tabs -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/tab_earning"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Earning"
-            android:backgroundTint="#1E824C"
-            android:textColor="#FFFFFF"
-            android:fontFamily="sans-serif-medium" />
-
-        <Button
-            android:id="@+id/tab_my_cars"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:text="My Cars"
-            android:backgroundTint="#1E824C"
-            android:textColor="#FFFFFF"
-            android:fontFamily="sans-serif-medium"/>
-    </LinearLayout>
-
-    <!-- Content -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
+        <!-- Tab Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="16dp">
 
-            <!-- Total Earning Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/tab_earning"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:background="@drawable/rounded_background"
-                android:elevation="4dp"
-                android:layout_marginBottom="16dp">
+                android:layout_weight="1"
+                android:backgroundTint="@color/green"
+                android:text="Earning" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total Earning"
-                    android:textSize="16sp"
-                    android:textColor="#2C6B2F" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$ 21561.45"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#000000" />
-            </LinearLayout>
-
-            <!-- Payout Button -->
-<!--            <Button-->
-<!--                android:id="@+id/btn_payout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Payout"-->
-<!--                android:backgroundTint="#1E824C"-->
-<!--                android:textColor="#FFFFFF"-->
-<!--                android:layout_marginBottom="16dp"-->
-<!--                android:padding="12dp" />-->
-
-            <!-- Add Your Car Button with Plus Icon -->
-            <LinearLayout
-                android:id="@+id/btn_add_car"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/tab_my_cars"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:background="@drawable/rounded_background"
-                android:elevation="4dp"
-                android:layout_marginBottom="16dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/outline_add_box_24" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add Your Car"
-                    android:textSize="18sp"
-                    android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#000000" />
-            </LinearLayout>
+                android:layout_weight="1"
+                android:backgroundTint="@color/green"
+                android:text="My Cars" />
         </LinearLayout>
-    </ScrollView>
 
-    <!-- Footer -->
-    <LinearLayout
+        <!-- Fragment Container -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+</LinearLayout>
+    <!-- Bottom Navigation View aligned to the bottom -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#FFFFFF"
-        android:elevation="4dp"
-        android:padding="8dp">
-
-        <Button
-            android:id="@+id/btn_booking"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#FFFFFF"
-            android:textColor="@color/green"
-            android:fontFamily="sans-serif-medium"
-            android:text="Booking"/>
-
-        <Button
-            android:id="@+id/btn_home"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#FFFFFF"
-            android:textColor="@color/green"
-            android:fontFamily="sans-serif-medium"
-            android:text="Home"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btn_setting"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#FFFFFF"
-            android:textColor="@color/green"
-            android:fontFamily="sans-serif-medium"
-            android:text="Setting" />
-    </LinearLayout>
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"/>
+</RelativeLayout>
