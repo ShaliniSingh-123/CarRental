@@ -11,8 +11,8 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.models.RegisterRequest;
-import com.example.myapplication.models.RegisterResponse;
+import com.example.myapplication.models.request.RegisterRequest;
+import com.example.myapplication.models.response.RegisterResponse;
 import com.example.myapplication.network.ApiService;
 import com.example.myapplication.network.RetrofitClient;
 import com.google.android.material.textfield.TextInputEditText;

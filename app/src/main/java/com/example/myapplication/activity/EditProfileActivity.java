@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -18,8 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.models.ImageResponse;
-import com.example.myapplication.models.UserProfile;
+import com.example.myapplication.models.response.ImageResponse;
+import com.example.myapplication.models.response.UserProfileResponse;
 import com.example.myapplication.network.ApiService;
 import com.example.myapplication.network.RetrofitClient;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -34,8 +33,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EditProfileActivity extends AppCompatActivity {
     private EditText etName, etEmail, etPhone, etAddress;
@@ -188,9 +185,9 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         apiService.updateUserProfileWithImage(nameRequestBody, emailRequestBody,addressRequestBody)
-                .enqueue(new Callback<UserProfile>() {
+                .enqueue(new Callback<UserProfileResponse>() {
                     @Override
-                    public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                    public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(EditProfileActivity.this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
                             finish();
@@ -200,7 +197,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<UserProfile> call, Throwable t) {
+                    public void onFailure(Call<UserProfileResponse> call, Throwable t) {
                         Toast.makeText(EditProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -246,11 +243,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
         String userId = "67443a51e088ba69d945c527"; // Replace with actual user ID
         ApiService apiService = RetrofitClient.getRetrofitInstance(EditProfileActivity.this).create(ApiService.class);
-        apiService.getUserProfile(userId).enqueue(new Callback<UserProfile>() {
+        apiService.getUserProfile().enqueue(new Callback<UserProfileResponse>() {
             @Override
-            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+            public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    UserProfile.User user = response.body().getUser();
+                    UserProfileResponse.User user = response.body().getUser();
                     if (user != null) {
                         etName.setText(user.getFullName());
                         etEmail.setText(user.getEmail());
@@ -266,7 +263,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserProfile> call, Throwable t) {
+            public void onFailure(Call<UserProfileResponse> call, Throwable t) {
                 Toast.makeText(EditProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

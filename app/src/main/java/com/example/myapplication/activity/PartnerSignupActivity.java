@@ -9,8 +9,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.models.PartnerRegisterRequest;
-import com.example.myapplication.models.PartnerResponseRequest;
+import com.example.myapplication.models.request.PartnerRegisterRequest;
+import com.example.myapplication.models.response.PartnerResponse;
 import com.example.myapplication.network.ApiService;
 import com.example.myapplication.network.RetrofitClient;
 import com.google.android.material.textfield.TextInputEditText;
@@ -83,9 +83,9 @@ public class PartnerSignupActivity extends AppCompatActivity {
 
         PartnerRegisterRequest request = new PartnerRegisterRequest(fullName, email, mobile, address, password);
 
-        apiService.register(request).enqueue(new Callback<PartnerResponseRequest>() {
+        apiService.register(request).enqueue(new Callback<PartnerResponse>() {
             @Override
-            public void onResponse(Call<PartnerResponseRequest> call, Response<PartnerResponseRequest> response) {
+            public void onResponse(Call<PartnerResponse> call, Response<PartnerResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().isSuccess()) {
                         showToast("Registration Successful");
@@ -98,7 +98,7 @@ public class PartnerSignupActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PartnerResponseRequest> call, Throwable t) {
+            public void onFailure(Call<PartnerResponse> call, Throwable t) {
                 Log.e("API_ERROR", "Error: " + t.getMessage());
                 showToast("Failed to connect to server");
             }

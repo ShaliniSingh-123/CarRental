@@ -1,6 +1,6 @@
-package com.example.myapplication.models;
+package com.example.myapplication.models.request;
 
-public class Booking {
+public class BookingRequest {
     private String carModel;
     private String bookingId;
     private String tripStart;
@@ -9,7 +9,7 @@ public class Booking {
     private String location;
     private int carImage;
 
-    public Booking(String carModel, String bookingId, String tripStart, String tripEnd, String paidAmount, String location, int carImage) {
+    public BookingRequest(String carModel, String bookingId, String tripStart, String tripEnd, String paidAmount, String location, int carImage) {
         this.carModel = carModel;
         this.bookingId = bookingId;
         this.tripStart = tripStart;

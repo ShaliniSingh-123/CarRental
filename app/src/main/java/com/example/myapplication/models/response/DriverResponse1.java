@@ -1,4 +1,4 @@
-package com.example.myapplication.models;
+package com.example.myapplication.models.response;
 
 public class DriverResponse1 {
     private int statusCode;

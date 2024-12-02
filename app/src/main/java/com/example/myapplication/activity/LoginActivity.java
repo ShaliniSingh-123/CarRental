@@ -8,13 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.models.LoginRequest;
-import com.example.myapplication.models.LoginResponse;
+import com.example.myapplication.models.request.LoginRequest;
+import com.example.myapplication.models.response.LoginResponse;
 import com.example.myapplication.network.ApiService;
 import com.example.myapplication.network.RetrofitClient;
 import com.example.myapplication.utils.SharedPreferencesManager;
@@ -22,7 +21,6 @@ import com.example.myapplication.utils.SharedPreferencesManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -85,10 +83,26 @@ public class LoginActivity extends AppCompatActivity {
                         // Show success message
                         Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
+                        String role=loginResponse.getData().getUser().getRole();
                         // Pass user data to the next activity
-                        Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                        Intent intent;
+
+                        switch (role) {
+                            case "customer":
+                                intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                                break;
+                            case "partner":
+                                intent = new Intent(LoginActivity.this, PartnerDashboardActivity.class);
+                                break;
+                            case "driver":
+                                intent = new Intent(LoginActivity.this, DriverDashboardActivity.class);
+                                break;
+                            default:
+                                Toast.makeText(LoginActivity.this, "Unknown role: " + role, Toast.LENGTH_SHORT).show();
+                                return; // Exit if role is unknown
+                        }
                         intent.putExtra("user_email", loginResponse.getData().getUser().getEmail());
-                        intent.putExtra("user_fullName", loginResponse.getData().getUser().getFullName());
+//                        intent.putExtra("user_fullName", loginResponse.getData().getUser().);
 
                         startActivity(intent);
                         finish();  // Close the login activity

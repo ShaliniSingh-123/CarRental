@@ -1,31 +1,29 @@
 package com.example.myapplication.network;
 
 
-import com.example.myapplication.models.DriverImageResponse;
-import com.example.myapplication.models.DriverResponse1;
-import com.example.myapplication.models.ImageResponse;
-import com.example.myapplication.models.LoginRequest;
-import com.example.myapplication.models.LoginResponse;
-import com.example.myapplication.models.LogoutResponse;
-import com.example.myapplication.models.PartnerRegisterRequest;
-import com.example.myapplication.models.PartnerResponseRequest;
-import com.example.myapplication.models.RegisterRequest;
-import com.example.myapplication.models.RegisterResponse;
-import com.example.myapplication.models.UserProfile;
+import com.example.myapplication.models.response.DriverImageResponse;
+import com.example.myapplication.models.response.DriverResponse1;
+import com.example.myapplication.models.response.ImageResponse;
+import com.example.myapplication.models.request.LoginRequest;
+import com.example.myapplication.models.response.LoginResponse;
+import com.example.myapplication.models.response.LogoutResponse;
+import com.example.myapplication.models.request.PartnerRegisterRequest;
+import com.example.myapplication.models.response.PartnerResponse;
+import com.example.myapplication.models.request.RegisterRequest;
+import com.example.myapplication.models.response.RegisterResponse;
+import com.example.myapplication.models.response.UserProfileResponse;
+import com.example.myapplication.models.response.UserProfileResponse;
 
 import retrofit2.Call;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Part;
 import retrofit2.http.Multipart;
-import retrofit2.http.Field;
 
 
 public interface ApiService {
@@ -40,7 +38,7 @@ public interface ApiService {
 
 
     @GET("/api/v1/users/profile/{userId}")
-    Call<UserProfile> getUserProfile(@Path("userId") String userId);
+    Call<UserProfileResponse> getUserProfile();
 
     @Multipart
     @POST("/api/v1/users/uploadImage") // Replace with your server's endpoint URL
@@ -48,7 +46,7 @@ public interface ApiService {
 
     @Multipart
     @POST("/api/v1/users/updateProfile/")
-    Call<UserProfile> updateUserProfileWithImage(
+    Call<UserProfileResponse> updateUserProfileWithImage(
             @Part("fullName") RequestBody name,
             @Part("email") RequestBody email,
             @Part("address") RequestBody address
@@ -85,6 +83,6 @@ public interface ApiService {
 
 
     @POST("/api/v1/partners/registerPartner")  // Specify the endpoint
-    Call<PartnerResponseRequest> register(@Body PartnerRegisterRequest request);
+    Call<PartnerResponse> register(@Body PartnerRegisterRequest request);
 
 }

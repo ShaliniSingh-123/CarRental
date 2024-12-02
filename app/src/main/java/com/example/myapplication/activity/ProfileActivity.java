@@ -10,8 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.dialog.*;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activity.CustomerSupportActivity;
-import com.example.myapplication.models.LogoutResponse;
+import com.example.myapplication.models.response.LogoutResponse;
 import com.example.myapplication.network.ApiService;
 import com.example.myapplication.network.RetrofitClient;
 import com.example.myapplication.utils.SharedPreferencesManager;

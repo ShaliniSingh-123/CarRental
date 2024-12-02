@@ -1,4 +1,7 @@
-package com.example.myapplication.models;
+package com.example.myapplication.models.response;
+
+import java.util.Date;
+
 public class LoginResponse {
     private int statusCode;
     private Data data;
@@ -38,7 +41,7 @@ public class LoginResponse {
         this.success = success;
     }
 
-    // Inner Data class
+    // Nested class for Data
     public static class Data {
         private User user;
         private String accessToken;
@@ -70,33 +73,24 @@ public class LoginResponse {
         }
     }
 
-    // Inner User class
+    // Nested class for User
     public static class User {
         private String _id;
-        private String fullName;
         private String email;
-        private String mobile;
-        private String photo;
-        private String photoPublicId;
-        private String createdAt;
-        private String updatedAt;
+        private String role;
+        private String linkedId;
+        private boolean isActive;
+        private Date createdAt;
+        private Date updatedAt;
         private int __v;
 
         // Getters and Setters
-        public String getId() {
+        public String get_id() {
             return _id;
         }
 
-        public void setId(String _id) {
+        public void set_id(String _id) {
             this._id = _id;
-        }
-
-        public String getFullName() {
-            return fullName;
-        }
-
-        public void setFullName(String fullName) {
-            this.fullName = fullName;
         }
 
         public String getEmail() {
@@ -107,43 +101,43 @@ public class LoginResponse {
             this.email = email;
         }
 
-        public String getMobile() {
-            return mobile;
+        public String getRole() {
+            return role;
         }
 
-        public void setMobile(String mobile) {
-            this.mobile = mobile;
+        public void setRole(String role) {
+            this.role = role;
         }
 
-        public String getPhoto() {
-            return photo;
+        public String getLinkedId() {
+            return linkedId;
         }
 
-        public void setPhoto(String photo) {
-            this.photo = photo;
+        public void setLinkedId(String linkedId) {
+            this.linkedId = linkedId;
         }
 
-        public String getPhotoPublicId() {
-            return photoPublicId;
+        public boolean isActive() {
+            return isActive;
         }
 
-        public void setPhotoPublicId(String photoPublicId) {
-            this.photoPublicId = photoPublicId;
+        public void setActive(boolean active) {
+            isActive = active;
         }
 
-        public String getCreatedAt() {
+        public Date getCreatedAt() {
             return createdAt;
         }
 
-        public void setCreatedAt(String createdAt) {
+        public void setCreatedAt(Date createdAt) {
             this.createdAt = createdAt;
         }
 
-        public String getUpdatedAt() {
+        public Date getUpdatedAt() {
             return updatedAt;
         }
 
-        public void setUpdatedAt(String updatedAt) {
+        public void setUpdatedAt(Date updatedAt) {
             this.updatedAt = updatedAt;
         }
 
@@ -156,3 +150,4 @@ public class LoginResponse {
         }
     }
 }
+

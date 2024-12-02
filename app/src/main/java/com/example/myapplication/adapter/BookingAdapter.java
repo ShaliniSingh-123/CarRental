@@ -10,15 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.models.Booking;
+import com.example.myapplication.models.request.BookingRequest;
 
 import java.util.List;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingViewHolder> {
 
-    private List<Booking> bookingList;
+    private List<BookingRequest> bookingList;
 
-    public BookingAdapter(List<Booking> bookingList) {
+    public BookingAdapter(List<BookingRequest> bookingList) {
         this.bookingList = bookingList;
     }
 
@@ -31,7 +31,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
     @Override
     public void onBindViewHolder(@NonNull BookingViewHolder holder, int position) {
-        Booking booking = bookingList.get(position);
+        BookingRequest booking = bookingList.get(position);
         holder.textCarModel.setText(booking.getCarModel());
         holder.textBookingId.setText("Booking id " + booking.getBookingId());
         holder.textLocation.setText(booking.getLocation());

@@ -1,11 +1,7 @@
-package com.example.myapplication.models;
-
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
+package com.example.myapplication.models.response;
 
 // This is the main UserProfile class that will contain the User data
-public class UserProfile {
+public class UserProfileResponse {
 
     private boolean success;
     private String message;

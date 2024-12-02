@@ -1,5 +1,5 @@
-package com.example.myapplication.models;
-public class PartnerResponseRequest {
+package com.example.myapplication.models.response;
+public class PartnerResponse {
     private boolean success;
     private String message;
 

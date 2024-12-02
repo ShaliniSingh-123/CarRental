@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.BookingAdapter;
-import com.example.myapplication.models.Booking;
+import com.example.myapplication.models.request.BookingRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -43,10 +43,10 @@ public class MyBookingActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(this::navigateTo);
     }
 
-    private List<Booking> getSampleBookings() {
-        List<Booking> bookings = new ArrayList<>();
-        bookings.add(new Booking("Mercedes-Benz", "CZ2215", "Trip Start", "Trip End", "$660", "2464 Royal Ln. Mesa, New Jersey 45463", R.drawable.sedan));
-        bookings.add(new Booking("Mercedes-Benz", "CZ2215", "Trip Start", "Trip End", "$660", "2464 Royal Ln. Mesa, New Jersey 45463", R.drawable.hatchback));
+    private List<BookingRequest> getSampleBookings() {
+        List<BookingRequest> bookings = new ArrayList<>();
+        bookings.add(new BookingRequest("Mercedes-Benz", "CZ2215", "Trip Start", "Trip End", "$660", "2464 Royal Ln. Mesa, New Jersey 45463", R.drawable.sedan));
+        bookings.add(new BookingRequest("Mercedes-Benz", "CZ2215", "Trip Start", "Trip End", "$660", "2464 Royal Ln. Mesa, New Jersey 45463", R.drawable.hatchback));
         return bookings;
     }
     private boolean navigateTo(MenuItem item) {
