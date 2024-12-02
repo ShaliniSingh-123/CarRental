@@ -1,5 +1,6 @@
 package com.example.myapplication.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -89,6 +90,9 @@ public class PartnerSignupActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().isSuccess()) {
                         showToast("Registration Successful");
+                        Intent intent =  new Intent(PartnerSignupActivity.this, PartnerDashboardActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else {
                         showToast("Failed: " + response.body().getMessage());
                     }
