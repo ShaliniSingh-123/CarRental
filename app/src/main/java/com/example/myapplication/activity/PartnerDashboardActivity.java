@@ -53,10 +53,10 @@ public class PartnerDashboardActivity extends AppCompatActivity {
             loadFragment(new EarningFragment());  // Load the appropriate fragment
             return true;
         } else if (id == R.id.nav_profile) {
-            startActivity(new Intent(PartnerDashboardActivity.this, ProfileActivity.class));
+            startActivity(new Intent(PartnerDashboardActivity.this, PartnerProfileActivity.class));
             return true;
         } else if (id == R.id.nav_booking) {
-            startActivity(new Intent(PartnerDashboardActivity.this, MyBookingActivity.class));
+            startActivity(new Intent(PartnerDashboardActivity.this, PartnerBookingActivity.class));
             return true;
         }
         return false;

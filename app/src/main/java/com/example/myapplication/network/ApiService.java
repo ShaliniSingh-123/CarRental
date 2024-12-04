@@ -63,7 +63,8 @@ public interface ApiService {
 
         @POST("/api/v1/users/logout")
         Call<LogoutResponse> logoutUser();
-
+    @POST("/api/v1/users/deleteAccount")
+    Call<LogoutResponse> deleteAccount();
 
 
     @Multipart
