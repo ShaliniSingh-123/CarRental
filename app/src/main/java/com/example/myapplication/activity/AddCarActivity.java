@@ -1,28 +1,37 @@
 package com.example.myapplication.activity;
 
-import android.widget.ImageView;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
-import android.widget.GridLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.models.request.AddCarRequest;
+import com.example.myapplication.network.ApiService;
+import com.example.myapplication.network.RetrofitClient;
+import com.example.myapplication.models.response.*;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddCarActivity extends AppCompatActivity {
 
     // Step 1 Fields
     private EditText etCarName, etCarModel, etRegistrationNumber, etSubcategory;
     private Spinner spinnerCategory, spinnerSeatingCapacity, spinnerFuelType, spinnerTransmissionType;
-    private GridLayout gridLayout;
-    private ImageView imageView1, imageView2, imageView3, imageView4;
 
     // Step 2 Fields (Pricing)
     private EditText dailyRentalPrice;
@@ -34,9 +43,6 @@ public class AddCarActivity extends AppCompatActivity {
     // Step 4 Fields (Location)
     private EditText pickupLocation, dropoffLocation;
 
-    // Step 5 Fields (Image Uploads)
-    private Button uploadImagesButton, uploadDocumentButton;
-
     // Navigation Buttons
     private Button nextButton;
     private ImageView backArrow;
@@ -46,10 +52,16 @@ public class AddCarActivity extends AppCompatActivity {
     private TextView stepIndicator;
     private int currentStep = 1;
 
+    // Retrofit API Service
+    private ApiService apiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
+
+        // Initialize Retrofit service
+        apiService = RetrofitClient.getRetrofitInstance(AddCarActivity.this).create(ApiService.class);
 
         // Initialize Views for Steps
         initializeViews();
@@ -62,19 +74,19 @@ public class AddCarActivity extends AppCompatActivity {
             switch (currentStep) {
                 case 1:
                     if (validateStep1()) {
-                        transitionToStep(step1, step2, "Features");
+                        transitionToStep(step1, step2, "Pricing");
                         currentStep++;
                     }
                     break;
                 case 2:
                     if (validateStep2()) {
-                        transitionToStep(step2, step3, "Location");
+                        transitionToStep(step2, step3, "Features");
                         currentStep++;
                     }
                     break;
                 case 3:
                     if (validateStep3()) {
-                        transitionToStep(step3, step4, "Upload Your Car Pictures");
+                        transitionToStep(step3, step4, "Location");
                         currentStep++;
                     }
                     break;
@@ -87,11 +99,6 @@ public class AddCarActivity extends AppCompatActivity {
                     break;
                 case 5:
                     submitForm();
-                    // Get the ViewPager from PartnerDashboardActivity and switch to the "My Cars" tab
-                    Intent intent = new Intent(AddCarActivity.this, PartnerDashboardActivity.class);
-                    intent.putExtra("tab", "MyCars"); // Pass a flag to indicate to the dashboard activity to switch to the "My Cars" tab
-                    startActivity(intent);
-                    finish();  // Optionally, you can use finish() to close the current activity
                     break;
             }
         });
@@ -105,26 +112,23 @@ public class AddCarActivity extends AppCompatActivity {
                         currentStep--;
                         break;
                     case 3:
-                        transitionToStep(step3, step2, "Features");
+                        transitionToStep(step3, step2, "Pricing");
                         currentStep--;
                         break;
                     case 4:
-                        transitionToStep(step4, step3, "Location");
+                        transitionToStep(step4, step3, "Features");
                         currentStep--;
                         break;
                     case 5:
-                        transitionToStep(step5, step4, "Upload Your Car Pictures");
+                        transitionToStep(step5, step4, "Location");
+                        nextButton.setText("Next");
                         currentStep--;
                         break;
                 }
             } else {
-                // When the current step is 1, navigate to PartnerDashboard activity
-                Intent intent = new Intent(AddCarActivity.this, PartnerDashboardActivity.class);
-                startActivity(intent);
-                finish();  // Optional: Finish the current activity so that the user can't navigate back to it
+                finish(); // Navigate back
             }
         });
-
     }
 
     // Initialize Views for all steps and buttons
@@ -135,20 +139,9 @@ public class AddCarActivity extends AppCompatActivity {
         step4 = findViewById(R.id.step4);
         step5 = findViewById(R.id.step5);
 
-        gridLayout = findViewById(R.id.gridLayout);
-        imageView1 = findViewById(R.id.imageView1);
-        imageView2 = findViewById(R.id.imageView2);
-        imageView3 = findViewById(R.id.imageView3);
-        imageView4 = findViewById(R.id.imageView4);
-
-        imageView1.setOnClickListener(v -> openImagePicker(1));
-        imageView2.setOnClickListener(v -> openImagePicker(2));
-        imageView3.setOnClickListener(v -> openImagePicker(3));
-        imageView4.setOnClickListener(v -> openImagePicker(4));
-
         stepIndicator = findViewById(R.id.stepIndicator);
         nextButton = findViewById(R.id.nextButton);
-        backArrow = findViewById(R.id.backArrow); // Initialize the back arrow button
+        backArrow = findViewById(R.id.backArrow);
 
         // Step 1 Fields
         etCarName = findViewById(R.id.etCarName);
@@ -162,7 +155,7 @@ public class AddCarActivity extends AppCompatActivity {
         spinnerTransmissionType = findViewById(R.id.spinnerTransmissionType);
 
         // Step 2 Fields (Pricing)
-//        dailyRentalPrice = findViewById(R.id.dailyRentalPrice);
+        dailyRentalPrice = findViewById(R.id.dailyRentalPrice);
 
         // Step 3 Fields (Features)
         airConditioning = findViewById(R.id.airConditioning);
@@ -174,9 +167,6 @@ public class AddCarActivity extends AppCompatActivity {
         // Step 4 Fields (Location)
         pickupLocation = findViewById(R.id.pickupLocation);
         dropoffLocation = findViewById(R.id.dropoffLocation);
-
-        // Step 5 Fields (Image Uploads)
-        uploadImagesButton = findViewById(R.id.uploadImagesButton);
     }
 
     // Transition between steps with indicator update
@@ -203,12 +193,10 @@ public class AddCarActivity extends AppCompatActivity {
 
     // Validation for Step 1
     private boolean validateStep1() {
-        String carName = etCarName.getText().toString().trim();
-        String carModel = etCarModel.getText().toString().trim();
-        String registrationNumber = etRegistrationNumber.getText().toString().trim();
-        String subcategory = etSubcategory.getText().toString().trim();
-
-        if (carName.isEmpty() || carModel.isEmpty() || registrationNumber.isEmpty() || subcategory.isEmpty()) {
+        if (etCarName.getText().toString().trim().isEmpty() ||
+                etCarModel.getText().toString().trim().isEmpty() ||
+                etRegistrationNumber.getText().toString().trim().isEmpty() ||
+                etSubcategory.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "Please fill in all fields in Step 1", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -228,13 +216,50 @@ public class AddCarActivity extends AppCompatActivity {
         return true;
     }
 
-    // Image picker logic (stub)
-    private void openImagePicker(int imageIndex) {
-        Toast.makeText(this, "Select Image for ImageView " + imageIndex, Toast.LENGTH_SHORT).show();
-    }
-
     // Submit form logic (final step)
     private void submitForm() {
-        Toast.makeText(this, "Form Submitted", Toast.LENGTH_SHORT).show();
+        AddCarRequest request = new AddCarRequest();
+        request.setCarName(etCarName.getText().toString().trim());
+        request.setCarModel(etCarModel.getText().toString().trim());
+        request.setRegistrationNumber(etRegistrationNumber.getText().toString().trim());
+        request.setSubcategory(etSubcategory.getText().toString().trim());
+        request.setCategory(spinnerCategory.getSelectedItem().toString());
+        request.setSeatingCapacity(Integer.parseInt(spinnerSeatingCapacity.getSelectedItem().toString()));
+        request.setFuelType(spinnerFuelType.getSelectedItem().toString());
+        request.setTransmissionType(spinnerTransmissionType.getSelectedItem().toString());
+        request.setDailyRentalPrice(Double.parseDouble(dailyRentalPrice.getText().toString().trim()));
+
+        List<String> features = new ArrayList<>();
+        if (airConditioning.isChecked()) features.add("Air Conditioning");
+        if (gps.isChecked()) features.add("GPS");
+        if (bluetooth.isChecked()) features.add("Bluetooth");
+        if (childSeat.isChecked()) features.add("Child Seat");
+        if (!otherFeatures.getText().toString().isEmpty()) features.add(otherFeatures.getText().toString());
+
+        request.setFeatures(features);
+        request.setPickupLocation(pickupLocation.getText().toString().trim());
+        request.setDropoffLocation(dropoffLocation.getText().toString().trim());
+
+        apiService.addCar(request).enqueue(new Callback<AddCarResponse>() {
+            @Override
+            public void onResponse(Call<AddCarResponse> call, Response<AddCarResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(AddCarActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    if (response.body().isSuccess()) {
+                        Intent intent = new Intent(AddCarActivity.this, PartnerDashboardActivity.class);
+                        intent.putExtra("tab", "MyCars");
+                        startActivity(intent);
+                        finish();
+                    }
+                } else {
+                    Toast.makeText(AddCarActivity.this, "Failed to add car", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddCarResponse> call, Throwable t) {
+                Toast.makeText(AddCarActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

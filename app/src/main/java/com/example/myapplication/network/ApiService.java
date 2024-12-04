@@ -1,6 +1,8 @@
 package com.example.myapplication.network;
 
 
+import com.example.myapplication.models.request.AddCarRequest;
+import com.example.myapplication.models.response.AddCarResponse;
 import com.example.myapplication.models.response.DriverImageResponse;
 import com.example.myapplication.models.response.DriverResponse1;
 import com.example.myapplication.models.response.ImageResponse;
@@ -37,8 +39,12 @@ public interface ApiService {
     Call<RegisterResponse> register(@Body RegisterRequest registerRequest); // Send RegisterRequest and receive RegisterResponse
 
 
-    @GET("/api/v1/users/profile/{userId}")
+    @GET("/api/v1/users/profile")
     Call<UserProfileResponse> getUserProfile();
+
+    @GET("/api/v1/users/profile")
+    Call<UserProfileResponse> deleteProfileImage();
+
 
     @Multipart
     @POST("/api/v1/users/uploadImage") // Replace with your server's endpoint URL
@@ -46,10 +52,13 @@ public interface ApiService {
 
     @Multipart
     @POST("/api/v1/users/updateProfile/")
-    Call<UserProfileResponse> updateUserProfileWithImage(
+    Call<UserProfileResponse> updateUserProfile(
             @Part("fullName") RequestBody name,
             @Part("email") RequestBody email,
+            @Part("phoneNumber") RequestBody phoneNumber,
             @Part("address") RequestBody address
+
+
     );
 
         @POST("/api/v1/users/logout")
@@ -84,5 +93,9 @@ public interface ApiService {
 
     @POST("/api/v1/partners/registerPartner")  // Specify the endpoint
     Call<PartnerResponse> register(@Body PartnerRegisterRequest request);
+
+
+    @POST("/api/v1/cars/addCar") // Update the endpoint based on your server
+    Call<AddCarResponse> addCar(@Body AddCarRequest carRequest);
 
 }

@@ -90,7 +90,7 @@ public class PartnerSignupActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().isSuccess()) {
                         showToast("Registration Successful");
-                        Intent intent =  new Intent(PartnerSignupActivity.this, PartnerDashboardActivity.class);
+                        Intent intent =  new Intent(PartnerSignupActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                     } else {

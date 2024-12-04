@@ -1,20 +1,38 @@
 package com.example.myapplication.models.response;
 
 // This is the main UserProfile class that will contain the User data
+import com.google.gson.annotations.SerializedName;
+import java.util.List;
+
 public class UserProfileResponse {
 
-    private boolean success;
+    @SerializedName("statusCode")
+    private int statusCode;
+
+    @SerializedName("data")
+    private Data data;
+
+    @SerializedName("message")
     private String message;
-    private User user;
+
+    @SerializedName("success")
+    private boolean success;
 
     // Getters and Setters
-
-    public boolean isSuccess() {
-        return success;
+    public int getStatusCode() {
+        return statusCode;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
     }
 
     public String getMessage() {
@@ -25,31 +43,54 @@ public class UserProfileResponse {
         this.message = message;
     }
 
-    public User getUser() {
-        return user;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
-    // Inner User class representing the user data
-    public static class User {
+    // Nested class for data
+    public static class Data {
+
+        @SerializedName("_id")
+        private String id;
+
+        @SerializedName("fullName")
         private String fullName;
-        private String email;
-        private String mobile;
-        private String photo;
 
-        private String Address;
+        @SerializedName("email")
+        private String email;
+
+        @SerializedName("phoneNumber")
+        private String phoneNumber;
+
+        @SerializedName("address")
+        private String address;
+
+        @SerializedName("imgUrl")
+        private String imgUrl;
+
+        @SerializedName("bookingHistory")
+        private List<Object> bookingHistory;
+
+        @SerializedName("createdAt")
+        private String createdAt;
+
+        @SerializedName("updatedAt")
+        private String updatedAt;
+
+        @SerializedName("__v")
+        private int version;
 
         // Getters and Setters
-
-        public String getAddress() {
-            return fullName;
+        public String getId() {
+            return id;
         }
 
-        public void setAddress(String address) {
-            this.Address = address;
+        public void setId(String id) {
+            this.id = id;
         }
 
         public String getFullName() {
@@ -68,21 +109,62 @@ public class UserProfileResponse {
             this.email = email;
         }
 
-        public String getMobile() {
-            return mobile;
+        public String getPhoneNumber() {
+            return phoneNumber;
         }
 
-        public void setMobile(String mobile) {
-            this.mobile = mobile;
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
         }
 
-        public String getPhoto() {
-            return photo;
+        public String getAddress() {
+            return address;
         }
 
-        public void setPhoto(String photo) {
-            this.photo = photo;
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getImgUrl() {
+            return imgUrl;
+        }
+
+        public void setImgUrl(String imgUrl) {
+            this.imgUrl = imgUrl;
+        }
+
+        public List<Object> getBookingHistory() {
+            return bookingHistory;
+        }
+
+        public void setBookingHistory(List<Object> bookingHistory) {
+            this.bookingHistory = bookingHistory;
+        }
+
+        public String getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public String getUpdatedAt() {
+            return updatedAt;
+        }
+
+        public void setUpdatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
+        }
+
+        public int getVersion() {
+            return version;
+        }
+
+        public void setVersion(int version) {
+            this.version = version;
         }
     }
 }
+
 

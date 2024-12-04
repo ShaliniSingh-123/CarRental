@@ -199,6 +199,15 @@
                 android:background="@drawable/rounded_edittext_background"
                 android:padding="12dp"
                 android:layout_marginBottom="12dp" />
+
+            <EditText
+                android:id="@+id/dailyRentalPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Per day Rental Price"
+                android:background="@drawable/rounded_edittext_background"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp" />
         </LinearLayout>
         <!-- Step 4: Image and Documentation -->
         <LinearLayout
