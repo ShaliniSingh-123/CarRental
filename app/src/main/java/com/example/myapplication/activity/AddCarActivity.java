@@ -1,7 +1,10 @@
 package com.example.myapplication.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,14 +14,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.models.request.AddCarRequest;
 import com.example.myapplication.network.ApiService;
 import com.example.myapplication.network.RetrofitClient;
-import com.example.myapplication.models.response.*;
-
+import com.example.myapplication.models.response.AddCarResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddCarActivity extends AppCompatActivity {
+
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     // Step 1 Fields
     private EditText etCarName, etCarModel, etRegistrationNumber, etSubcategory;
@@ -43,8 +48,11 @@ public class AddCarActivity extends AppCompatActivity {
     // Step 4 Fields (Location)
     private EditText pickupLocation, dropoffLocation;
 
+    // Image upload
+    private ImageView selectedImageView;
+
     // Navigation Buttons
-    private Button nextButton;
+    private Button nextButton, uploadImagesButton;
     private ImageView backArrow;
 
     // Step Views
@@ -74,19 +82,19 @@ public class AddCarActivity extends AppCompatActivity {
             switch (currentStep) {
                 case 1:
                     if (validateStep1()) {
-                        transitionToStep(step1, step2, "Pricing");
+                        transitionToStep(step1, step2, "Features");
                         currentStep++;
                     }
                     break;
                 case 2:
                     if (validateStep2()) {
-                        transitionToStep(step2, step3, "Features");
+                        transitionToStep(step2, step3, "Location");
                         currentStep++;
                     }
                     break;
                 case 3:
                     if (validateStep3()) {
-                        transitionToStep(step3, step4, "Location");
+                        transitionToStep(step3, step4, "Add Your Car Images");
                         currentStep++;
                     }
                     break;
@@ -112,15 +120,15 @@ public class AddCarActivity extends AppCompatActivity {
                         currentStep--;
                         break;
                     case 3:
-                        transitionToStep(step3, step2, "Pricing");
+                        transitionToStep(step3, step2, "Features");
                         currentStep--;
                         break;
                     case 4:
-                        transitionToStep(step4, step3, "Features");
+                        transitionToStep(step4, step3, "Location");
                         currentStep--;
                         break;
                     case 5:
-                        transitionToStep(step5, step4, "Location");
+                        transitionToStep(step5, step4, "Add Your Car Images");
                         nextButton.setText("Next");
                         currentStep--;
                         break;
@@ -129,6 +137,9 @@ public class AddCarActivity extends AppCompatActivity {
                 finish(); // Navigate back
             }
         });
+
+        // Image upload button click listener
+        uploadImagesButton.setOnClickListener(v -> openImageGallery());
     }
 
     // Initialize Views for all steps and buttons
@@ -167,6 +178,9 @@ public class AddCarActivity extends AppCompatActivity {
         // Step 4 Fields (Location)
         pickupLocation = findViewById(R.id.pickupLocation);
         dropoffLocation = findViewById(R.id.dropoffLocation);
+
+        // Image Upload Fields
+        uploadImagesButton = findViewById(R.id.uploadImagesButton);
     }
 
     // Transition between steps with indicator update
@@ -261,5 +275,26 @@ public class AddCarActivity extends AppCompatActivity {
                 Toast.makeText(AddCarActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    // Open image gallery to pick images
+    private void openImageGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    // Handle the result of image selection
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                selectedImageView.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

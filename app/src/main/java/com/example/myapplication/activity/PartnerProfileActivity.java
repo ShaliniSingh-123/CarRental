@@ -53,7 +53,7 @@ public class PartnerProfileActivity extends AppCompatActivity {
         optionLogout = findViewById(R.id.option_logout);
         bottomNav = findViewById(R.id.bottomNavView);
         // BottomNavigationView listener
-        bottomNav.setSelectedItemId(R.id.nav_home);
+        bottomNav.setSelectedItemId(R.id.nav_settings);
         bottomNav.setOnNavigationItemSelectedListener(this::navigateTo);
 
         // Load Profile Data
@@ -203,7 +203,7 @@ public class PartnerProfileActivity extends AppCompatActivity {
         if (id == R.id.nav_home) {
             startActivity(new Intent(PartnerProfileActivity.this, PartnerDashboardActivity.class));
             return true;
-        } else if (id == R.id.nav_profile) {
+        } else if (id == R.id.nav_settings) {
             startActivity(new Intent(PartnerProfileActivity.this, PartnerProfileActivity.class));
             return true;
         } else if (id == R.id.nav_booking) {
