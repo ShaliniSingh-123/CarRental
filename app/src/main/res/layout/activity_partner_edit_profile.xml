@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="@color/white">
 
     <LinearLayout
@@ -12,16 +11,14 @@
         android:orientation="vertical">
 
         <!-- Profile Picture -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
+                android:background="#FFFFFF"
+                android:elevation="6dp"
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:id="@+id/back_button"
@@ -47,7 +44,8 @@
                 android:src="@drawable/profile"
                 android:contentDescription="Profile Image"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"
                 android:layout_alignParentTop="true"
                 android:scaleType="centerCrop"/>
 
@@ -58,11 +56,17 @@
                 android:text="Change"
                 android:backgroundTint="#1E824C"
                 android:layout_marginTop="-30dp"
+                android:layout_gravity="center"
                 android:layout_below="@id/profile_picture"
                 android:layout_centerHorizontal="true" />
-        </RelativeLayout>
+
 
         <!-- Personal Information Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -201,6 +205,6 @@
                 android:backgroundTint="@color/grey"
                 android:textColor="@color/white" />
         </LinearLayout>
-
+    </LinearLayout>
     </LinearLayout>
 </ScrollView>

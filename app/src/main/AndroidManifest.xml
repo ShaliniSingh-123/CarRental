@@ -20,6 +20,12 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activity.DriverProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.ExtraActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.MyBookingActivity"
             android:exported="false" />
         <activity
@@ -38,15 +44,6 @@
             android:name=".activity.PartnerProfileActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.MyCarsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.EarningActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.LoginDashboardActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.PartnerSignupActivity"
             android:exported="true" />
         <activity
@@ -56,13 +53,13 @@
             android:name=".activity.DriverSignupActivity"
             android:exported="true" />
         <activity
+            android:name=".activity.DriverDashboardActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.AddCarActivity"
             android:exported="true" />
         <activity
             android:name=".activity.PartnerDashboardActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.HostCarActivity"
             android:exported="true" />
         <activity
             android:name=".activity.BookingSuccessActivity"

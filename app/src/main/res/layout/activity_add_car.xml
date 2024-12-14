@@ -217,72 +217,21 @@
             android:orientation="vertical"
             android:padding="16dp"
             android:visibility="gone">
-            <!-- GridLayout for 4 images -->
-            <GridLayout
-                android:id="@+id/gridLayout"
+
+            <!-- GridLayout for displaying images -->
+            <GridView
+                android:id="@+id/gridView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:orientation="horizontal"
-                android:rowCount="2"
-                android:paddingBottom="16dp"
-                android:layout_gravity="center">
-                <!-- Image Views for uploaded car pictures -->
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/image_border_radius"
-                    android:src="@drawable/image1"
-                    android:clipToOutline="true" />
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/image_border_radius"
-                    android:src="@drawable/image2"
-                    android:clipToOutline="true" />
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/image_border_radius"
-                    android:src="@drawable/image3"
-                    android:clipToOutline="true" />
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="8dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/image_border_radius"
-                    android:src="@drawable/image4"
-                    android:clipToOutline="true"  />
-                <Button
-                    android:id="@+id/uploadImagesButton"
-                    android:layout_width="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_height="100dp"
-                    android:text="+"
-                    android:textSize="45sp"
-                    android:textColor="#000000"
-                    android:background="@drawable/dashed_border"
-                    android:gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:padding="16dp"
-                    android:layout_marginBottom="16dp" />
-            </GridLayout>
+                android:numColumns="2"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="10dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"/>
+
         </LinearLayout>
+
+
         <!-- Step 5:Documentation -->
         <LinearLayout
             android:id="@+id/step5"
@@ -317,6 +266,7 @@
                     android:background="@drawable/dashed_border"
                     android:padding="16dp">
                     <ImageView
+                        android:id="@+id/frontImageView"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/baseline_add_24" />
@@ -343,6 +293,7 @@
                     android:background="@drawable/dashed_border"
                     android:padding="16dp">
                     <ImageView
+                        android:id="@+id/backImageView"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/baseline_add_24"
@@ -383,6 +334,7 @@
                     android:background="@drawable/dashed_border"
                     android:padding="16dp">
                     <ImageView
+                        android:id="@+id/odocumentfrontImageView"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/baseline_add_24" />
@@ -409,6 +361,7 @@
                     android:background="@drawable/dashed_border"
                     android:padding="16dp">
                     <ImageView
+                        android:id="@+id/odocumentbackImageView"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/baseline_add_24"
@@ -449,6 +402,7 @@
                     android:background="@drawable/dashed_border"
                     android:padding="16dp">
                     <ImageView
+                        android:id="@+id/licensefrontImageView"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/baseline_add_24" />
@@ -475,6 +429,7 @@
                     android:background="@drawable/dashed_border"
                     android:padding="16dp">
                     <ImageView
+                        android:id="@+id/licensebackImageView"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/baseline_add_24"
@@ -514,6 +469,7 @@
                     android:background="@drawable/dashed_border"
                     android:padding="16dp">
                     <ImageView
+                        android:id="@+id/bankPhotoImageView"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/baseline_add_24" />
@@ -532,6 +488,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/green"
+                android:textColor="@color/white"
                 android:text="Next" />
         </LinearLayout>
     </LinearLayout>
