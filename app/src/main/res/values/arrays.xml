@@ -1,10 +1,24 @@
 <resources>
-    <array name="country_codes">
-        <item>+1</item>  <!-- USA -->
-        <item>+44</item> <!-- UK -->
-        <item>+91</item> <!-- India -->
-        <item>+61</item> <!-- Australia -->
-        <item>+81</item> <!-- Japan -->
-        <!-- Add more country codes as needed -->
-    </array>
+    <string-array name="car_categories">
+        <item>Category 1</item>
+        <item>Category 2</item>
+        <item>Category 3</item>
+    </string-array>
+
+    <string-array name="seating_capacity">
+        <item>2</item>
+        <item>4</item>
+        <item>7</item>
+    </string-array>
+
+    <string-array name="fuel_types">
+        <item>Petrol</item>
+        <item>Diesel</item>
+        <item>Electric</item>
+    </string-array>
+
+    <string-array name="transmission_types">
+        <item>Automatic</item>
+        <item>Manual</item>
+    </string-array>
 </resources>

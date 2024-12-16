@@ -22,9 +22,7 @@
         <activity
             android:name=".activity.DriverProfileActivity"
             android:exported="true" />
-        <activity
-            android:name=".activity.ExtraActivity"
-            android:exported="true" />
+
         <activity
             android:name=".activity.MyBookingActivity"
             android:exported="false" />

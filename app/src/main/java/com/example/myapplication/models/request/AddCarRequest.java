@@ -4,12 +4,13 @@ import java.util.List;
 
 
 
-import java.util.List;
-
 public class AddCarRequest {
-
     private String carName;
     private String carModel;
+    private String carColor;
+    private int carYear;
+    private int carMileagePerHour;
+    private String carDescription;
     private String registrationNumber;
     private String subcategory;
     private String category;
@@ -20,33 +21,8 @@ public class AddCarRequest {
     private List<String> features;
     private String pickupLocation;
     private String dropoffLocation;
-    private List<String> imageUrls;
 
-    // Default Constructor
-    public AddCarRequest() {
-    }
-
-    // Parameterized Constructor
-    public AddCarRequest(String carName, String carModel, String registrationNumber, String subcategory,
-                         String category, int seatingCapacity, String fuelType, String transmissionType,
-                         double dailyRentalPrice, List<String> features, String pickupLocation,
-                         String dropoffLocation, List<String> imageUrls) {
-        this.carName = carName;
-        this.carModel = carModel;
-        this.registrationNumber = registrationNumber;
-        this.subcategory = subcategory;
-        this.category = category;
-        this.seatingCapacity = seatingCapacity;
-        this.fuelType = fuelType;
-        this.transmissionType = transmissionType;
-        this.dailyRentalPrice = dailyRentalPrice;
-        this.features = features;
-        this.pickupLocation = pickupLocation;
-        this.dropoffLocation = dropoffLocation;
-        this.imageUrls = imageUrls;
-    }
-
-    // Getters and Setters
+    // Getters and setters
     public String getCarName() {
         return carName;
     }
@@ -61,6 +37,38 @@ public class AddCarRequest {
 
     public void setCarModel(String carModel) {
         this.carModel = carModel;
+    }
+
+    public String getCarColor() {
+        return carColor;
+    }
+
+    public void setCarColor(String carColor) {
+        this.carColor = carColor;
+    }
+
+    public int getCarYear() {
+        return carYear;
+    }
+
+    public void setCarYear(int carYear) {
+        this.carYear = carYear;
+    }
+
+    public int getCarMileagePerHour() {
+        return carMileagePerHour;
+    }
+
+    public void setCarMileagePerHour(int carMileagePerHour) {
+        this.carMileagePerHour = carMileagePerHour;
+    }
+
+    public String getCarDescription() {
+        return carDescription;
+    }
+
+    public void setCarDescription(String carDescription) {
+        this.carDescription = carDescription;
     }
 
     public String getRegistrationNumber() {
@@ -142,13 +150,4 @@ public class AddCarRequest {
     public void setDropoffLocation(String dropoffLocation) {
         this.dropoffLocation = dropoffLocation;
     }
-
-    public List<String> getImageUrls() {
-        return imageUrls;
-    }
-
-    public void setImageUrls(List<String> imageUrls) {
-        this.imageUrls = imageUrls;
-    }
 }
-

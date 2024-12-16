@@ -16,6 +16,8 @@ import com.example.myapplication.models.response.RegisterResponse;
 import com.example.myapplication.models.response.UserProfileResponse;
 import com.example.myapplication.models.response.UserProfileResponse;
 
+import java.util.List;
+
 import retrofit2.Call;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -42,8 +44,8 @@ public interface ApiService {
     @GET("/api/v1/users/profile")
     Call<UserProfileResponse> getUserProfile();
 
-    @GET("/api/v1/users/profile")
-    Call<UserProfileResponse> deleteProfileImage();
+//    @GET("/api/v1/users/profile")
+//    Call<UserProfileResponse> deleteProfileImage();
 
 
     @Multipart
@@ -96,7 +98,14 @@ public interface ApiService {
     Call<PartnerResponse> register(@Body PartnerRegisterRequest request);
 
 
-    @POST("/api/v1/cars/addCar") // Update the endpoint based on your server
-    Call<AddCarResponse> addCar(@Body AddCarRequest carRequest);
+
+
+
+        @Multipart
+        @POST("/api/v1/cars/addCar")
+        Call<AddCarResponse> addCarWithImages(
+                @Part("carDetails") RequestBody carDetails,
+                @Part List<MultipartBody.Part> imageFiles
+        );
 
 }

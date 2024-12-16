@@ -1,10 +1,7 @@
 package com.example.myapplication.activity;
-import android.app.Activity;
-import android.app.Activity;
+
 import android.content.Intent;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,37 +10,39 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.models.request.AddCarRequest;
 import com.example.myapplication.network.ApiService;
 import com.example.myapplication.network.RetrofitClient;
 import com.example.myapplication.models.response.AddCarResponse;
+import com.example.myapplication.utils.FileUtils;
+import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddCarActivity extends Activity {
-    private static final int PICK_IMAGE = 1;
-    private static final int MAX_IMAGES = 6;
-    private ArrayList<Bitmap> imageList = new ArrayList<>();
-    private AddCarActivity.ImageAdapter imageAdapter;
+public class AddCarActivity extends AppCompatActivity {
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int IMAGE_COUNT = 4;
 
     // Step 1 Fields
-    private EditText etCarName, etCarModel, etRegistrationNumber, etSubcategory;
+    private EditText etCarName, etCarModel, etCarColor, etCarYear, etCarMileagePerHour, etCarDescription, etRegistrationNumber, etSubcategory;
     private Spinner spinnerCategory, spinnerSeatingCapacity, spinnerFuelType, spinnerTransmissionType;
 
     // Step 2 Fields (Pricing)
@@ -56,14 +55,20 @@ public class AddCarActivity extends Activity {
     // Step 4 Fields (Location)
     private EditText pickupLocation, dropoffLocation;
 
+    // Image upload
+    private ImageView[] selectedImageViews;
+    private MultipartBody.Part[] selectedImageParts;
+    private Button[] uploadImageButtons;
+
     // Navigation Buttons
     private Button nextButton;
-    private ImageView backArrow, frontPhoto, backPhoto,odocumentfrontPhoto,odocumentbackPhoto,licensefrontPhoto,licensebackPhoto,bankPhoto;
+    private ImageView backArrow;
 
     // Step Views
     private View step1, step2, step3, step4, step5;
     private TextView stepIndicator;
     private int currentStep = 1;
+    private int currentImageIndex = -1;
 
     // Retrofit API Service
     private ApiService apiService;
@@ -72,27 +77,6 @@ public class AddCarActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
-
-        GridView gridView = findViewById(R.id.gridView);
-        imageAdapter = new AddCarActivity.ImageAdapter();
-        gridView.setAdapter(imageAdapter);
-
-        // Add click listener for adding and deleting images
-        gridView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
-            if (position == imageList.size()) {
-                // "+" icon clicked
-                if (imageList.size() < MAX_IMAGES) {
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType("image/*");
-                    startActivityForResult(intent, PICK_IMAGE);
-                } else {
-                    Toast.makeText(AddCarActivity.this, "Maximum 6 images allowed!", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                // Image clicked for deletion
-                showDeleteConfirmationDialog(position);
-            }
-        });
 
         // Initialize Retrofit service
         apiService = RetrofitClient.getRetrofitInstance(AddCarActivity.this).create(ApiService.class);
@@ -164,41 +148,14 @@ public class AddCarActivity extends Activity {
             }
         });
 
-        // Image selection for front photo
-        frontPhoto.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, 1);
-        });
-
-        // Image selection for back photo
-        backPhoto.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, 2);
-        });
-
-        odocumentfrontPhoto.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, 1);
-        });
-
-        odocumentbackPhoto.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, 2);
-        });
-        licensefrontPhoto.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, 1);
-        });
-
-        licensebackPhoto.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, 2);
-        });
-        bankPhoto.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, 2);
-        });
-
+        // Image upload button click listeners
+        for (int i = 0; i < IMAGE_COUNT; i++) {
+            int finalI = i;
+            uploadImageButtons[i].setOnClickListener(v -> {
+                currentImageIndex = finalI;
+                openImageGallery();
+            });
+        }
     }
 
     // Initialize Views for all steps and buttons
@@ -216,6 +173,10 @@ public class AddCarActivity extends Activity {
         // Step 1 Fields
         etCarName = findViewById(R.id.etCarName);
         etCarModel = findViewById(R.id.etCarModel);
+        etCarColor = findViewById(R.id.etCarColor);
+        etCarYear = findViewById(R.id.etCarYear);
+        etCarMileagePerHour = findViewById(R.id.etCarMileagePerHour);
+        etCarDescription = findViewById(R.id.etCarDescription);
         etRegistrationNumber = findViewById(R.id.etRegistrationNumber);
         etSubcategory = findViewById(R.id.etSubcategory);
 
@@ -237,14 +198,21 @@ public class AddCarActivity extends Activity {
         // Step 4 Fields (Location)
         pickupLocation = findViewById(R.id.pickupLocation);
         dropoffLocation = findViewById(R.id.dropoffLocation);
-        frontPhoto = findViewById(R.id.frontImageView);
-        backPhoto = findViewById(R.id.backImageView);
-        odocumentfrontPhoto = findViewById(R.id.odocumentfrontImageView);
-        odocumentbackPhoto = findViewById(R.id.odocumentbackImageView);
-        licensefrontPhoto = findViewById(R.id.licensefrontImageView);
-        licensebackPhoto = findViewById(R.id.licensebackImageView);
-        bankPhoto = findViewById(R.id.bankPhotoImageView);
 
+        // Image Upload Fields
+        selectedImageViews = new ImageView[IMAGE_COUNT];
+        selectedImageParts = new MultipartBody.Part[IMAGE_COUNT];
+        uploadImageButtons = new Button[IMAGE_COUNT];
+
+        selectedImageViews[0] = findViewById(R.id.selectedImageView1);
+        selectedImageViews[1] = findViewById(R.id.selectedImageView2);
+        selectedImageViews[2] = findViewById(R.id.selectedImageView3);
+        selectedImageViews[3] = findViewById(R.id.selectedImageView4);
+
+        uploadImageButtons[0] = findViewById(R.id.uploadImagesButton1);
+        uploadImageButtons[1] = findViewById(R.id.uploadImagesButton2);
+        uploadImageButtons[2] = findViewById(R.id.uploadImagesButton3);
+        uploadImageButtons[3] = findViewById(R.id.uploadImagesButton4);
     }
 
     // Transition between steps with indicator update
@@ -297,8 +265,27 @@ public class AddCarActivity extends Activity {
     // Submit form logic (final step)
     private void submitForm() {
         AddCarRequest request = new AddCarRequest();
+        // Set fields from user input...
         request.setCarName(etCarName.getText().toString().trim());
         request.setCarModel(etCarModel.getText().toString().trim());
+        request.setCarColor(etCarColor.getText().toString().trim());
+
+        // Parse Car Year and Car Mileage as integers
+        try {
+            request.setCarYear(Integer.parseInt(etCarYear.getText().toString().trim()));
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please enter a valid Car Year", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            request.setCarMileagePerHour(Integer.parseInt(etCarMileagePerHour.getText().toString().trim()));
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please enter valid Car Mileage", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        request.setCarDescription(etCarDescription.getText().toString().trim());
         request.setRegistrationNumber(etRegistrationNumber.getText().toString().trim());
         request.setSubcategory(etSubcategory.getText().toString().trim());
         request.setCategory(spinnerCategory.getSelectedItem().toString());
@@ -318,7 +305,24 @@ public class AddCarActivity extends Activity {
         request.setPickupLocation(pickupLocation.getText().toString().trim());
         request.setDropoffLocation(dropoffLocation.getText().toString().trim());
 
-        apiService.addCar(request).enqueue(new Callback<AddCarResponse>() {
+        Gson gson = new Gson();
+        String carDetailsJson = gson.toJson(request);
+        RequestBody carDetailsBody = RequestBody.create(MediaType.parse("application/json"), carDetailsJson);
+
+        // Add all images to the API call
+        List<MultipartBody.Part> imageParts = new ArrayList<>();
+        for (MultipartBody.Part imagePart : selectedImageParts) {
+            if (imagePart != null) {
+                imageParts.add(imagePart);
+            }
+        }
+
+        if (imageParts.isEmpty()) {
+            Toast.makeText(this, "Please upload at least one image", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        apiService.addCarWithImages(carDetailsBody, imageParts).enqueue(new Callback<AddCarResponse>() {
             @Override
             public void onResponse(Call<AddCarResponse> call, Response<AddCarResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -341,67 +345,32 @@ public class AddCarActivity extends Activity {
         });
     }
 
+    // Open image gallery to pick images
+    private void openImageGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
     // Handle the result of image selection
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
             try {
-                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data.getData()));
-                imageList.add(bitmap);
-                imageAdapter.notifyDataSetChanged();
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                selectedImageViews[currentImageIndex].setImageBitmap(bitmap);
+                selectedImageParts[currentImageIndex] = prepareImageFilePart(imageUri, "image" + currentImageIndex);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void showDeleteConfirmationDialog(int position) {
-        new AlertDialog.Builder(this)
-                .setTitle("Delete Image")
-                .setMessage("Are you sure you want to delete this image?")
-                .setPositiveButton("Yes", (DialogInterface dialog, int which) -> {
-                    imageList.remove(position);
-                    imageAdapter.notifyDataSetChanged();
-                })
-                .setNegativeButton("No", null)
-                .show();
-    }
-
-    private class ImageAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            return imageList.size() < MAX_IMAGES ? imageList.size() + 1 : MAX_IMAGES;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return position < imageList.size() ? imageList.get(position) : null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, android.view.ViewGroup parent) {
-            ImageView imageView;
-            if (convertView == null) {
-                imageView = new ImageView(AddCarActivity.this);
-                imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            } else {
-                imageView = (ImageView) convertView;
-            }
-
-            if (position < imageList.size()) {
-                imageView.setImageBitmap(imageList.get(position));
-            } else {
-                imageView.setImageResource(android.R.drawable.ic_input_add); // "+" icon
-            }
-
-            return imageView;
-        }
+    // Prepare image file part for upload
+    private MultipartBody.Part prepareImageFilePart(Uri imageUri, String partName) {
+        File file = new File(FileUtils.getPath(this, imageUri));
+        RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(imageUri)), file);
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
     }
 }

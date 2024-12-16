@@ -30,6 +30,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.util.Log;
 
 public class EditProfileActivity extends AppCompatActivity {
     private EditText etName, etEmail, etPhone, etAddress;
@@ -180,28 +181,57 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void fetchUserProfile() {
+        Log.d("fetchUserProfile", "Making API call to fetch user profile");
+
         ApiService apiService = RetrofitClient.getRetrofitInstance(EditProfileActivity.this).create(ApiService.class);
         apiService.getUserProfile().enqueue(new Callback<UserProfileResponse>() {
             @Override
             public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
+                // Log the HTTP status code
+                Log.d("fetchUserProfile", "Response Code: " + response.code());
+
                 if (response.isSuccessful() && response.body() != null) {
+                    // Log the raw response body
+                    Log.d("fetchUserProfile", "Response Body: " + response.body().toString());
+
+                    // Log individual fields from the response
                     UserProfileResponse user = response.body();
+                    Log.d("fetchUserProfile", "Full Name: " + user.getData().getFullName());
+                    Log.d("fetchUserProfile", "Email: " + user.getData().getEmail());
+                    Log.d("fetchUserProfile", "Phone Number: " + user.getData().getPhoneNumber());
+                    Log.d("fetchUserProfile", "Address: " + user.getData().getAddress());
+                    Log.d("fetchUserProfile", "Image URL: " + user.getData().getImgUrl());
+
+                    // Populate the UI
                     etName.setText(user.getData().getFullName());
                     etEmail.setText(user.getData().getEmail());
                     etPhone.setText(user.getData().getPhoneNumber());
                     etAddress.setText(user.getData().getAddress());
                     Glide.with(EditProfileActivity.this).load(user.getData().getImgUrl()).into(profileImage);
                 } else {
+                    // Log the error body
+                    try {
+                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "No error body";
+                        Log.d("fetchUserProfile", "Error Body: " + errorBody);
+                    } catch (IOException e) {
+                        Log.e("fetchUserProfile", "Error parsing error body: " + e.getMessage(), e);
+                    }
+
+                    Log.d("fetchUserProfile", "Failed to fetch profile. Error Code: " + response.code());
                     Toast.makeText(EditProfileActivity.this, "Failed to fetch profile", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<UserProfileResponse> call, Throwable t) {
+                // Log the error message
+                Log.e("fetchUserProfile", "Error: " + t.getMessage(), t);
                 Toast.makeText(EditProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 
 
 }

@@ -1,495 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:padding="16dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <!-- Header -->
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <!-- Step Indicator -->
+        <TextView
+            android:id="@+id/stepIndicator"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:orientation="horizontal"
-            android:background="#FFFFFF"
-            android:elevation="6dp"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="16dp" >
-            <!-- Back Arrow -->
-            <ImageView
-                android:id="@+id/backArrow"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/baseline_arrow_back_24"
-                android:contentDescription="Back Arrow"
-                android:layout_marginEnd="16dp" />
-            <TextView
-                android:id="@+id/stepIndicator"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Add Basic Information"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="20sp" />
-        </LinearLayout>
-        <!-- Step 1: General Information -->
+            android:text="Step 1: Add Basic Information"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp" />
+
+        <!-- Step 1: Basic Information -->
         <LinearLayout
             android:id="@+id/step1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginTop="12dp">
-            <!-- Car Name -->
-            <com.google.android.material.textfield.TextInputLayout
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etCarName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Car Name"
-                app:boxStrokeColor="@color/green"
-                app:hintTextColor="@color/green"
-                android:layout_marginBottom="16dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etCarName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- Car Model -->
-            <com.google.android.material.textfield.TextInputLayout
+                android:hint="Car Name" />
+
+            <EditText
+                android:id="@+id/etCarModel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Car Model"
-                app:boxStrokeColor="@color/green"
-                app:hintTextColor="@color/green"
-                android:layout_marginBottom="16dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etCarModel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- Registration Number -->
-            <com.google.android.material.textfield.TextInputLayout
+                android:hint="Car Model" />
+
+            <EditText
+                android:id="@+id/etCarColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Registration Number"
-                app:boxStrokeColor="@color/green"
-                app:hintTextColor="@color/green"
-                android:layout_marginBottom="16dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etRegistrationNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- Spinner with Proper Border -->
+                android:hint="Car Color" />
+
+            <EditText
+                android:id="@+id/etCarYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Car Year" />
+
+            <EditText
+                android:id="@+id/etCarMileagePerHour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mileage per Hour" />
+
+            <EditText
+                android:id="@+id/etCarDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Car Description" />
+
+            <EditText
+                android:id="@+id/etRegistrationNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Registration Number" />
+
+            <EditText
+                android:id="@+id/etSubcategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Subcategory" />
+
             <Spinner
                 android:id="@+id/spinnerCategory"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp" />
-            <!-- Subcategory -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Subcategory "
-                app:boxStrokeColor="@color/green"
-                app:hintTextColor="@color/green"
-                android:layout_marginBottom="16dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etSubcategory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- Seating Capacity -->
+                android:layout_height="wrap_content" />
+
             <Spinner
                 android:id="@+id/spinnerSeatingCapacity"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName" />
-            <!-- Fuel Type -->
+                android:layout_height="wrap_content" />
+
             <Spinner
                 android:id="@+id/spinnerFuelType"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
-            <!-- Transmission Type -->
+                android:layout_height="wrap_content" />
+
             <Spinner
                 android:id="@+id/spinnerTransmissionType"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
-        <!-- Step 2: Features -->
+
+        <!-- Step 2: Pricing -->
         <LinearLayout
             android:id="@+id/step2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
             android:visibility="gone">
-            <CheckBox
-                android:id="@+id/airConditioning"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Air Conditioning"
-                android:layout_marginBottom="8dp" />
-            <CheckBox
-                android:id="@+id/gps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="GPS"
-                android:layout_marginBottom="8dp" />
-            <CheckBox
-                android:id="@+id/bluetooth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bluetooth Connectivity"
-                android:layout_marginBottom="8dp" />
-            <CheckBox
-                android:id="@+id/childSeat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Child Seat Available"
-                android:layout_marginBottom="8dp" />
-            <EditText
-                android:id="@+id/otherFeatures"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Other Features"
-                android:layout_marginBottom="12dp"
-                android:inputType="textMultiLine" />
-        </LinearLayout>
-        <!-- Step 3: Location -->
-        <LinearLayout
-            android:id="@+id/step3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:visibility="gone">
-            <EditText
-                android:id="@+id/pickupLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Pickup Location"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
-            <EditText
-                android:id="@+id/dropoffLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Drop-off Location (Optional)"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
 
             <EditText
                 android:id="@+id/dailyRentalPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Per day Rental Price"
-                android:background="@drawable/rounded_edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                android:hint="Daily Rental Price" />
+
         </LinearLayout>
-        <!-- Step 4: Image and Documentation -->
+
+        <!-- Step 3: Features -->
+        <LinearLayout
+            android:id="@+id/step3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <CheckBox
+                android:id="@+id/airConditioning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Air Conditioning" />
+
+            <CheckBox
+                android:id="@+id/gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GPS" />
+
+            <CheckBox
+                android:id="@+id/bluetooth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bluetooth" />
+
+            <CheckBox
+                android:id="@+id/childSeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Child Seat" />
+
+            <EditText
+                android:id="@+id/otherFeatures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Other Features" />
+
+        </LinearLayout>
+
+        <!-- Step 4: Location -->
         <LinearLayout
             android:id="@+id/step4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
             android:visibility="gone">
 
-            <!-- GridLayout for displaying images -->
-            <GridView
-                android:id="@+id/gridView"
+            <EditText
+                android:id="@+id/pickupLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="2"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            android:stretchMode="columnWidth"
-            android:gravity="center"/>
+                android:hint="Pickup Location" />
+
+            <EditText
+                android:id="@+id/dropoffLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dropoff Location" />
 
         </LinearLayout>
 
-
-        <!-- Step 5:Documentation -->
+        <!-- Step 5: Image Upload -->
         <LinearLayout
             android:id="@+id/step5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
             android:visibility="gone">
-            <!-- Upload ID Photos Section -->
-            <TextView
-                android:layout_width="match_parent"
+
+            <Button
+                android:id="@+id/uploadImagesButton1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload your ID photo"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginBottom="5dp"
-                android:fontFamily="sans-serif" />
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:text="Upload Image 1" />
+
+            <Button
+                android:id="@+id/uploadImagesButton2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <!-- Front Photo -->
-                <LinearLayout
-                    android:id="@+id/frontPhoto"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@drawable/dashed_border"
-                    android:padding="16dp">
-                    <ImageView
-                        android:id="@+id/frontImageView"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/baseline_add_24" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Front"
-                        android:textSize="14sp"
-                        android:textColor="#000000"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-                <!-- Spacer -->
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="match_parent" />
-                <!-- Back Photo -->
-                <LinearLayout
-                    android:id="@+id/backPhoto"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@drawable/dashed_border"
-                    android:padding="16dp">
-                    <ImageView
-                        android:id="@+id/backImageView"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/baseline_add_24"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Back"
-                        android:textSize="14sp"
-                        android:textColor="#000000"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </LinearLayout>
-            <!--  Car Ownership Documents Section -->
-            <TextView
-                android:layout_width="match_parent"
+                android:text="Upload Image 2" />
+
+            <Button
+                android:id="@+id/uploadImagesButton3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Car Ownership Documents"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="5dp"
-                android:fontFamily="sans-serif" />
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:text="Upload Image 3" />
+
+            <Button
+                android:id="@+id/uploadImagesButton4"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <!-- Front Photo -->
-                <LinearLayout
-                    android:id="@+id/odocumentfrontPhoto"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@drawable/dashed_border"
-                    android:padding="16dp">
-                    <ImageView
-                        android:id="@+id/odocumentfrontImageView"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/baseline_add_24" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Front"
-                        android:textSize="14sp"
-                        android:textColor="#000000"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-                <!-- Spacer -->
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="match_parent" />
-                <!-- Back Photo -->
-                <LinearLayout
-                    android:id="@+id/odocumentbackPhoto"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@drawable/dashed_border"
-                    android:padding="16dp">
-                    <ImageView
-                        android:id="@+id/odocumentbackImageView"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/baseline_add_24"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Back"
-                        android:textSize="14sp"
-                        android:textColor="#000000"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </LinearLayout>
-            <!--  Car License Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Vechile License"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="5dp"
-                android:fontFamily="sans-serif" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <!-- Front Photo -->
-                <LinearLayout
-                    android:id="@+id/licensefrontPhoto"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@drawable/dashed_border"
-                    android:padding="16dp">
-                    <ImageView
-                        android:id="@+id/licensefrontImageView"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/baseline_add_24" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Front"
-                        android:textSize="14sp"
-                        android:textColor="#000000"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-                <!-- Spacer -->
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="match_parent" />
-                <!-- Back Photo -->
-                <LinearLayout
-                    android:id="@+id/licensebackPhoto"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@drawable/dashed_border"
-                    android:padding="16dp">
-                    <ImageView
-                        android:id="@+id/licensebackImageView"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/baseline_add_24"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Back"
-                        android:textSize="14sp"
-                        android:textColor="#000000"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </LinearLayout>
-            <!-- Bank Details Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bank Passbook"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="5dp"
-                android:fontFamily="sans-serif" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <!-- Front Photo -->
-                <LinearLayout
-                    android:id="@+id/bankPhoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@drawable/dashed_border"
-                    android:padding="16dp">
-                    <ImageView
-                        android:id="@+id/bankPhotoImageView"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/baseline_add_24" />
-                </LinearLayout>
-            </LinearLayout>
+                android:text="Upload Image 4" />
+
+
+            <ImageView
+                android:id="@+id/selectedImageView1"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Selected Image 1" />
+
+            <ImageView
+                android:id="@+id/selectedImageView2"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Selected Image 2" />
+
+            <ImageView
+                android:id="@+id/selectedImageView3"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Selected Image 3" />
+
+            <ImageView
+                android:id="@+id/selectedImageView4"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Selected Image 4" />
+
+
         </LinearLayout>
+
         <!-- Navigation Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="end"
             android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/backArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_arrow"
+                android:contentDescription="Back" />
+
             <Button
                 android:id="@+id/nextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/green"
-                android:textColor="@color/white"
+                android:layout_marginStart="16dp"
                 android:text="Next" />
+
         </LinearLayout>
+
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+
+</ScrollView>
