@@ -224,7 +224,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     // Open Car Selection Activity
     private void openCarSelection(String type) {
-        Toast.makeText(this, "Car selection for: " + type, Toast.LENGTH_SHORT).show();
+       Intent intent =new Intent(DashboardActivity.this, CategorySelectionActivity.class);
+       startActivity(intent);
     }
 
     // Handle bottom navigation
