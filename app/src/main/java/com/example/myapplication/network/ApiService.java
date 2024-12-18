@@ -15,12 +15,15 @@ import com.example.myapplication.models.request.RegisterRequest;
 import com.example.myapplication.models.response.RegisterResponse;
 import com.example.myapplication.models.response.UserProfileResponse;
 import com.example.myapplication.models.response.UserProfileResponse;
+import com.example.myapplication.models.response.CustomerBookingResponse;
+
 
 import java.util.List;
 
 import retrofit2.Call;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Query;
 
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -107,5 +110,8 @@ public interface ApiService {
                 @Part("carDetails") RequestBody carDetails,
                 @Part List<MultipartBody.Part> imageFiles
         );
+
+    @GET("/api/v1/booking/getBookingByuserId")
+    Call<List<CustomerBookingResponse>> getBookingsByUserId();
 
 }
