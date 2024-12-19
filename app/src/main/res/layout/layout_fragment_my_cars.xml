@@ -1,128 +1,132 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="4dp">
 
-    <!-- Car Card -->
-    <androidx.cardview.widget.CardView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/carsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:strokeColor="@android:color/darker_gray"
-        app:strokeWidth="1dp">
+        android:padding="16dp">
 
-        <!-- Car Content -->
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:gravity="end"
+            android:layout_marginBottom="8dp">
 
-            <!-- Edit and Delete Icons -->
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:layout_marginBottom="8dp">
+            <!-- Edit Icon -->
+            <ImageView
+                android:id="@+id/editIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/baseline_edit_24"
+                android:layout_marginStart="8dp"
+                android:contentDescription="Edit Car"
+                android:clickable="true"
+                android:focusable="true"/>
 
-                <!-- Edit Icon -->
-                <ImageView
-                    android:id="@+id/editIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/baseline_edit_24"
-                    android:layout_marginStart="8dp"
-                    android:contentDescription="Edit Car"
-                    android:clickable="true"
-                    android:focusable="true"/>
+            <!-- Delete Icon -->
+            <ImageView
+                android:id="@+id/deleteIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/baseline_delete_24"
+                android:contentDescription="Delete Car"
+                android:clickable="true"
+                android:focusable="true"/>
+        </LinearLayout>
 
-                <!-- Delete Icon -->
-                <ImageView
-                    android:id="@+id/deleteIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/baseline_delete_24"
-                    android:contentDescription="Delete Car"
-                    android:clickable="true"
-                    android:focusable="true"/>
-            </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <!-- Car Image -->
             <ImageView
                 android:id="@+id/carImage"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:src="@drawable/suv"
-                android:scaleType="centerCrop"
-                android:layout_marginBottom="8dp"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/darker_gray" />
-            <!-- Car Title and Details -->
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"/>
+
+            <!-- Car Brand and Model -->
             <TextView
-                android:id="@+id/carTitle"
-                android:layout_width="match_parent"
+                android:id="@+id/carBrand"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Honda City 1.5 Honda White"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginTop="8dp" />
 
             <TextView
-                android:id="@+id/carDetails"
-                android:layout_width="match_parent"
+                android:id="@+id/carModel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sedan | Diesel | 4 Seater"
-                android:textSize="14sp"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="16sp" />
 
-            <!-- Price and Rating Section -->
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!-- Other car details like year, seats, fuel type -->
+            <TextView
+                android:id="@+id/carYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-                <!-- Price -->
-                <TextView
-                    android:id="@+id/carPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$24.59 / day"
-                    android:textSize="14sp"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/carSeats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-                <!-- Rating -->
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/carFuelType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4.7"
-                        android:textSize="12sp"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/carPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/rate"
-                        android:layout_marginStart="4dp"/>
-                </LinearLayout>
-            </LinearLayout>
+            <!-- Additional features like mileage, availability -->
+            <TextView
+                android:id="@+id/carMilage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/carColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/carAvailability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Features -->
+            <TextView
+                android:id="@+id/carFeatures"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Car category and sub-category -->
+            <TextView
+                android:id="@+id/carCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/carSubCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
