@@ -3,6 +3,7 @@ package com.example.myapplication.network;
 
 import com.example.myapplication.models.request.AddCarRequest;
 import com.example.myapplication.models.response.AddCarResponse;
+import com.example.myapplication.models.response.CarDetailsResponse;
 import com.example.myapplication.models.response.DriverImageResponse;
 import com.example.myapplication.models.response.DriverResponse1;
 import com.example.myapplication.models.response.ImageResponse;
@@ -28,6 +29,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Part;
 import retrofit2.http.Multipart;
+import retrofit2.http.Query;
 
 
 public interface ApiService {
@@ -107,5 +109,8 @@ public interface ApiService {
                 @Part("carDetails") RequestBody carDetails,
                 @Part List<MultipartBody.Part> imageFiles
         );
+
+    @GET("api/v1/cars/getCarByUserId")
+    Call<CarDetailsResponse> getCarDetailsByUserId(@Query("userId") String userId);
 
 }
