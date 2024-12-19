@@ -3,6 +3,7 @@ package com.example.myapplication.network;
 
 import com.example.myapplication.models.request.AddCarRequest;
 import com.example.myapplication.models.response.AddCarResponse;
+import com.example.myapplication.models.response.Car;
 import com.example.myapplication.models.response.DriverImageResponse;
 import com.example.myapplication.models.response.DriverResponse1;
 import com.example.myapplication.models.response.GetCarByUserResponse;
@@ -117,6 +118,9 @@ public interface ApiService {
 
     @GET("api/v1/cars/getCarByUserId")
     Call<GetCarByUserResponse> getCarsByUserId();
+
+    @GET("api/v1/cars/getCarByCost")
+    Call<List<Car>> getCarsByCost(@Query("filter") String costFilter);
 
 
 }
