@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,6 +19,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.AyaStoriesAdapter;
 import com.example.myapplication.adapter.ImageSliderAdapter;
+import com.example.myapplication.models.response.Car;
+import com.example.myapplication.network.ApiService;
+import com.example.myapplication.network.RetrofitClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -26,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+
+import retrofit2.Call;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -224,8 +230,32 @@ public class DashboardActivity extends AppCompatActivity {
 
     // Open Car Selection Activity
     private void openCarSelection(String type) {
-        Toast.makeText(this, "Car selection for: " + type, Toast.LENGTH_SHORT).show();
+        ApiService apiService = RetrofitClient.getRetrofitInstance(this).create(ApiService.class);
+        apiService.getCarsByCost(type).enqueue(new retrofit2.Callback<List<Car>>() {
+            @Override
+            public void onResponse(Call<List<Car>> call, retrofit2.Response<List<Car>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Car> carList = response.body();
+                    Log.d("CarList", "Fetched cars: " + carList.toString());
+
+                    // Pass the car list to the next activity
+                    Intent intent = new Intent(DashboardActivity.this, CategorySelectionActivity.class);
+                    intent.putParcelableArrayListExtra("carList", new ArrayList<>(carList));
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(DashboardActivity.this, "Failed to fetch cars.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Car>> call, Throwable t) {
+                Toast.makeText(DashboardActivity.this, "ErrorAs: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("CarSelectionError", "Error: " + t.getMessage());
+
+            }
+        });
     }
+
 
     // Handle bottom navigation
     private boolean navigateTo(MenuItem item) {
