@@ -1,4 +1,5 @@
 package com.example.myapplication.dialog;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,11 +8,18 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.CarAdapter;  // Assuming you have an adapter for cars
+import com.example.myapplication.models.response.Car;  // Assuming you have a Car model class
+import java.util.List;
 
 public class MyCarsFragment extends Fragment {
 
     private ImageView editIcon, deleteIcon;
+    private RecyclerView carsRecyclerView;
+    private CarAdapter carAdapter;  // Assuming you have a car adapter to display cars
 
     @Nullable
     @Override
@@ -23,7 +31,13 @@ public class MyCarsFragment extends Fragment {
         editIcon = view.findViewById(R.id.editIcon);
         deleteIcon = view.findViewById(R.id.deleteIcon);
 
-        // Set click listeners
+        // Initialize RecyclerView
+        carsRecyclerView = view.findViewById(R.id.carsRecyclerView);  // Make sure RecyclerView ID matches
+
+        // Set the RecyclerView layout manager
+        carsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Set click listeners for edit and delete actions
         editIcon.setOnClickListener(v -> {
             // Code to handle edit action
             editCar();
@@ -35,6 +49,16 @@ public class MyCarsFragment extends Fragment {
         });
 
         return view;
+    }
+
+    // Method to update the list of cars in the RecyclerView
+    public void updateCarList(List<Car> carList) {
+        if (carAdapter == null) {
+            carAdapter = new CarAdapter(carList);  // Initialize adapter with the car list
+            carsRecyclerView.setAdapter(carAdapter);  // Set the adapter for the RecyclerView
+        } else {
+            carAdapter.updateCars(carList);  // If the adapter already exists, update the car list
+        }
     }
 
     private void editCar() {

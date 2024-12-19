@@ -5,6 +5,7 @@ import com.example.myapplication.models.request.AddCarRequest;
 import com.example.myapplication.models.response.AddCarResponse;
 import com.example.myapplication.models.response.DriverImageResponse;
 import com.example.myapplication.models.response.DriverResponse1;
+import com.example.myapplication.models.response.GetCarByUserResponse;
 import com.example.myapplication.models.response.ImageResponse;
 import com.example.myapplication.models.request.LoginRequest;
 import com.example.myapplication.models.response.LoginResponse;
@@ -113,5 +114,9 @@ public interface ApiService {
 
     @GET("/api/v1/booking/getBookingByuserId")
     Call<List<CustomerBookingResponse>> getBookingsByUserId();
+
+    @GET("api/v1/cars/getCarByUserId")
+    Call<GetCarByUserResponse> getCarsByUserId();
+
 
 }

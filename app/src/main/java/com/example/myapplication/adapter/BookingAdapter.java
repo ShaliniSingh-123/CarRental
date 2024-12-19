@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activity.Car;
+import com.example.myapplication.models.response.Car;
 import com.example.myapplication.models.response.CustomerBookingResponse;
 
 import java.util.ArrayList;

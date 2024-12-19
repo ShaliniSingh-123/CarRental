@@ -1,8 +1,5 @@
 package com.example.myapplication.models.response;
 
-import com.example.myapplication.activity.Car;
-import com.google.gson.annotations.SerializedName;
-
 public class CustomerBookingResponse {
     private String _id;
     private String customerId;
